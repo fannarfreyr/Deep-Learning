@@ -208,7 +208,7 @@ __marimo__/
 
 
 # Ignore data folder
-data/archive/*
+data/*
 
 # MacOS trying to leak info
 .DS_Store
