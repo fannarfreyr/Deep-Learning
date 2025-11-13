@@ -25,6 +25,9 @@ jobs:
   build_latex:
     # Use the latest Ubuntu environment
     runs-on: ubuntu-latest
+    # --- CRITICAL FIX: Grant write permissions for the GITHUB_TOKEN ---
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         # Action to check out the repository code
@@ -37,8 +40,11 @@ jobs:
         # Use the official cache action
         uses: actions/cache@v4
         with:
-          # Use v2 key to force a save after the last successful fix
-          key: ${{ runner.os }}-texlive-2024-v2
+          # --- Caching FIX: Using a more robust, dynamic key structure ---
+          # Key changes if the runner OS or the workflow file (which contains compiler settings) changes
+          key: ${{ runner.os }}-xelatex-v2-${{ hashFiles('.github/workflows/latex.yml') }}
+          # Restore keys will try to find any previous cache starting with this prefix
+          restore-keys: ${{ runner.os }}-xelatex-v2-
           # The path where xu-cheng/latex-action installs TeX Live (important!)
           path: ~/.cache/GHA-texlive
 
