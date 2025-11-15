@@ -39,7 +39,7 @@ class ExperimentLogger:
             if hasattr(self, key):
                 setattr(self, key, value)
             else:
-                print(f"⚠️ Unknown field: {key}")
+                print(f"Unknown field: {key}")
 
     def record_metrics(self, epoch, acc, loss):
         """Add metrics progressively."""
@@ -52,11 +52,11 @@ class ExperimentLogger:
     def commit(self):
         """Write the log to Markdown file."""
         if not self.active:
-            print("🟡 Logging is disabled. Skipping log.")
+            print("Logging is disabled. Skipping log.")
             return
 
         if not self.name:
-            print("⚠️ Experiment name not set. Skipping log.")
+            print("Experiment name not set. Skipping log.")
             return
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -82,7 +82,7 @@ class ExperimentLogger:
             print("\n Experiment Log Preview:\n")
             print(entry)
 
-        print(f"✅ Experiment '{self.name}' logged successfully.")
+        print(f"Experiment '{self.name}' logged successfully.")
         self.reset()
 
     def capture_errors(self, func, *args, **kwargs):
