@@ -1,306 +1,109 @@
 # Experiment Log
 
-## Experiment: multihead_v3_regularization
-**Date:** 2025-11-13 14:49:54
-
-**Changes Made:**
-- Added L2 regularization (weight_decay=0.01)
-- Switched batch size 64 → 128
-
-**Reason for Change:**
-Testing stronger regularization to improve generalization
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.7954, Loss=0.5501
-- Epoch 2: Accuracy=0.7489, Loss=0.4815
-- Epoch 3: Accuracy=0.8103, Loss=0.2136
-- Epoch 4: Accuracy=0.7530, Loss=0.5166
-- Epoch 5: Accuracy=0.7101, Loss=0.4452
-
-**Final Results:**
-Accuracy=0.7101, Loss=0.4452
-
-**Notes / Insights:**
-Even with errors, accuracy was promising. Need to test smaller LR.
-
----
-
-## Experiment: multihead_v3_regularization
-**Date:** 2025-11-13 14:53:50
-
-**Changes Made:**
-- Added L2 regularization (weight_decay=0.01)
-- Switched batch size 64 → 128
-
-**Reason for Change:**
-Testing stronger regularization to improve generalization
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.8824, Loss=0.5900
-- Epoch 2: Accuracy=0.8164, Loss=0.3107
-- Epoch 3: Accuracy=0.8179, Loss=0.4040
-- Epoch 4: Accuracy=0.9041, Loss=0.4281
-- Epoch 5: Accuracy=0.8264, Loss=0.2190
-
-**Final Results:**
-Accuracy=0.8264, Loss=0.2190
-
-**Notes / Insights:**
-Hello world
-
----
-
-## Experiment: multihead_v4_dropout_experiment
-**Date:** 2025-11-13 14:59:37
-
-**Changes Made:**
-- Added Dropout 0.3
-- Changed optimizer to AdamW
-
-**Reason for Change:**
-Try to reduce overfitting
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.8500, Loss=0.4000
-- Epoch 2: Accuracy=0.9000, Loss=0.3000
-- Epoch 3: Accuracy=0.9500, Loss=0.2000
-
-**Final Results:**
-Accuracy=0.95, Loss=0.25
-
-**Notes / Insights:**
-Promising results, model stable.
-
----
-
-## Experiment: multihead_v4_dropout_experiment
-**Date:** 2025-11-13 15:01:06
-
-**Changes Made:**
-- Added Dropout 0.3
-- Changed optimizer to AdamW
-
-**Reason for Change:**
-Try to reduce overfitting
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.8500, Loss=0.4000
-- Epoch 2: Accuracy=0.9000, Loss=0.3000
-- Epoch 3: Accuracy=0.9500, Loss=0.2000
-
-**Final Results:**
-Accuracy=0.95, Loss=0.25
-
-**Notes / Insights:**
-Promising results, model stable.
-
----
-
-## Experiment: multihead_v4_dropout_experiment
-**Date:** 2025-11-13 15:03:27
-
-**Changes Made:**
-- Added Dropout 0.3
-- Changed optimizer to AdamW
-
-**Reason for Change:**
-Try to reduce overfitting
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.8500, Loss=0.4000
-- Epoch 2: Accuracy=0.9000, Loss=0.3000
-- Epoch 3: Accuracy=0.9500, Loss=0.2000
-
-**Final Results:**
-Accuracy=0.95, Loss=0.25
-
-**Notes / Insights:**
-Promising results, model stable.
-
----
-
-## Experiment: multihead_v6_dropout_lr
-**Date:** 2025-11-13 15:47:26
-
-**Changes Made:**
-- Added dropout 0.3
-- Adjusted learning rate schedule
-
-**Reason for Change:**
-Improve generalization and convergence speed
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.1657, Loss=4.2302
-
-**Final Results:**
-Best validation Accuracy=0.1657
-
-**Notes / Insights:**
-Training finished in 9m 38s
-
----
-
-## Experiment: Name of experiment
-**Date:** 2025-11-13 16:15:10
-
-**Changes Made:**
-Changes
-
-**Reason for Change:**
-Improve generalization and convergence speed
-
-**Training Metrics:**
-- Epoch 1: Accuracy=0.1799, Loss=4.2166
-- Epoch 2: Accuracy=0.2523, Loss=3.7143
-
-**Final Results:**
-Best validation Accuracy=0.2523
-
-**Notes / Insights:**
-Training finished in 19m 18s
-
----
-
-## Experiment: Name of experiment
-**Date:** 2025-11-21 13:12:23
+## Experiment: Baseline_single_head_classification
+**Date:** 2025-11-23 22:14:09
 
 ### Changes
-Changes
+None, this is the baseline
 
 ### Reason
-Improve generalization and convergence speed
+Measure a baseline to compare to
 
 ### Metrics
-- Epoch 1: train_loss=4.753735759380865, train_acc=0.08856485034535687, val_loss=4.1976856248667085, val_acc=0.1921424186617557
-- Epoch 2: train_loss=3.3121923457633873, train_acc=0.4603223330775134, val_loss=3.665686407873717, val_acc=0.2713321055862492
-
-### Results
-Best Validation Accuracy = 0.2713
-
-### Notes
-Training completed successfully. Loss/accuracy plots and confusion matrix logged.
-
-### Images / Plots
-![img](plots/Name of experiment_loss_curve.png)
-![img](plots/Name of experiment_accuracy_curve.png)
-![img](plots/Name of experiment_val_confusion_matrix.png)
-![img](plots/Name of experiment_11_21_13_12_sample_val_image.png)
-
----
-
-## Experiment: Name of experiment
-**Date:** 2025-11-23 11:11:25
-
-### Changes
-Changes
-
-### Reason
-Improve generalization and convergence speed
-
-### Metrics
-- Epoch 1: train_loss=4.748616948058215, train_top1=9.286262472976837, train_top5=22.762854948358545, val_loss=4.185996989372539, val_top1=17.86372006429786, val_top5=42.418661736944394
-- Epoch 2: train_loss=3.310763511452781, train_top1=46.83039140328022, train_top5=74.99616270497133, val_loss=3.6636675466709594, val_top1=25.966850831071024, val_top5=51.810926965440686
-
-### Top-1 Accuracy per Epoch
-[9.286262472976837, 17.86372006429786, 46.83039140328022, 25.966850831071024]
-
-### Top-5 Accuracy per Epoch
-[22.762854948358545, 42.418661736944394, 74.99616270497133, 51.810926965440686]
-
-### Results
-Best Top-1 Accuracy = 25.97%
-
-### Notes
-Training finished. Logged curves, confusion matrix, sample image.
-
-### Images / Plots
-![img](plots/Name of experiment_loss_curve.png)
-![img](plots/Name of experiment_accuracy_curve.png)
-![img](plots/Name of experiment_11_23_11_10_confusion_matrix.png)
-![img](plots/Name of experiment_11_23_11_11_sample_val_image.png)
-
----
-
-## Experiment: Name of experiment
-**Date:** 2025-11-23 12:42:05
-
-### Changes
-Changes
-
-### Reason
-Improve generalization and convergence speed
-
-### Metrics
-- Epoch 1: train_loss=3.3020107080455205, train_top1=45.95548733574376, train_top5=75.74827321916933, val_loss=3.6568006718356307, val_top1=26.39656231050626, val_top5=52.854511975217555
-- Epoch 2: train_loss=2.479187075833769, train_top1=67.19877206271003, train_top5=88.7643898753871, val_loss=3.318538781394982, val_top1=33.76304481628118, val_top5=58.011049695656006
-- hierarchical_consistency: 0.4481276856967465
-- accuracy_Chrysler: 0.3333333333333333
-- accuracy_Ford: 0.32653061224489793
-- accuracy_Hyundai: 0.4819277108433735
-- accuracy_GMC: 0.5853658536585366
-- accuracy_Toyota: 0.40625
-- accuracy_Chevrolet: 0.5691489361702128
+- Epoch 1: train_loss=4.756690376425192, train_top1=8.749040675218161, train_top5=23.131235606617317, val_loss=4.186660209852468, val_top1=16.942909751222352, val_top5=40.3928790715957
+- Epoch 2: train_loss=3.318053653143226, train_top1=45.80199539055755, train_top5=74.2133537883861, val_loss=3.6642330931036513, val_top1=26.826273779403657, val_top5=52.547575204192384
+- Epoch 3: train_loss=2.490202739763882, train_top1=67.53645432912104, train_top5=89.37835764207935, val_loss=3.3278836059453227, val_top1=31.614487395687583, val_top5=58.37937382088621
+- Epoch 4: train_loss=1.9122096590326094, train_top1=78.4036837960607, train_top5=94.52033767407433, val_loss=3.1242336076487054, val_top1=33.88581952469125, val_top5=60.589318595684844
+- Epoch 5: train_loss=1.4882188129681215, train_top1=86.7996930079193, train_top5=97.65157329240215, val_loss=2.979874514157674, val_top1=36.218538984482535, val_top5=63.22897483821
+- Epoch 6: train_loss=1.157973064849309, train_top1=91.972371454012, train_top5=98.87950882578664, val_loss=2.863996946423825, val_top1=37.38489869213163, val_top5=64.21117249378183
+- Epoch 7: train_loss=0.9280253464866398, train_top1=94.7966231772832, train_top5=99.57022256331543, val_loss=2.781894972457558, val_top1=37.75322283960838, val_top5=65.13198281856604
+- Epoch 8: train_loss=0.7499706934345565, train_top1=96.62317728904789, train_top5=99.78511128165772, val_loss=2.712803054397424, val_top1=39.472068758520194, val_top5=66.42111726858046
+- Epoch 9: train_loss=0.6008788244228407, train_top1=98.25019187078234, train_top5=99.93860322333077, val_loss=2.6990522366495058, val_top1=40.27010433976822, val_top5=66.54389197699054
+- Epoch 10: train_loss=0.49735733464600396, train_top1=98.98695318495778, train_top5=99.95395241749809, val_loss=2.6380398860367036, val_top1=40.085942277153116, val_top5=67.71025170688617
+- Epoch 11: train_loss=0.41091016428066235, train_top1=99.38603223330774, train_top5=99.9846508058327, val_loss=2.6165183726229353, val_top1=41.74340084068903, val_top5=67.09637815312713
+- Epoch 12: train_loss=0.3419807001982665, train_top1=99.5088257866462, train_top5=100.0, val_loss=2.583307102313431, val_top1=41.436464080201695, val_top5=68.13996318632141
+- Epoch 13: train_loss=0.2891655498162106, train_top1=99.78511128165772, train_top5=100.0, val_loss=2.577523599598875, val_top1=40.76120318394632, val_top5=67.64886435268114
+- Epoch 14: train_loss=0.24772838785478177, train_top1=99.80046047582502, train_top5=100.0, val_loss=2.542328888247392, val_top1=40.945365236023584, val_top5=68.75383672837175
+- Epoch 15: train_loss=0.20891222185294445, train_top1=99.84650805832693, train_top5=100.0, val_loss=2.552252348103064, val_top1=41.19091465284372, val_top5=67.89441376950127
+- hierarchical_consistency: 0.5316144874155924
+- accuracy_Chrysler: 0.48333333333333334
+- accuracy_Ford: 0.4897959183673469
+- accuracy_Hyundai: 0.5542168674698795
+- accuracy_GMC: 0.5609756097560976
+- accuracy_Toyota: 0.59375
+- accuracy_Chevrolet: 0.5638297872340425
 - accuracy_smart: 0.625
-- accuracy_Suzuki: 0.34146341463414637
-- accuracy_Bentley: 0.42857142857142855
-- accuracy_Dodge: 0.49107142857142855
-- accuracy_Acura: 0.3877551020408163
-- accuracy_Volvo: 0.4
-- accuracy_Audi: 0.48148148148148145
+- accuracy_Suzuki: 0.3902439024390244
+- accuracy_Bentley: 0.5357142857142857
+- accuracy_Dodge: 0.5535714285714286
+- accuracy_Acura: 0.46938775510204084
+- accuracy_Volvo: 0.4666666666666667
+- accuracy_Audi: 0.6018518518518519
 - accuracy_Mitsubishi: 0.16666666666666666
-- accuracy_Ferrari: 0.6818181818181818
+- accuracy_Ferrari: 0.8181818181818182
 - accuracy_Jeep: 0.5116279069767442
-- accuracy_Eagle: 0.6666666666666666
-- accuracy_Land: 0.5714285714285714
-- accuracy_Mercedes-Benz: 0.2909090909090909
-- accuracy_BMW: 0.39090909090909093
-- accuracy_Ram: 0.5
+- accuracy_Eagle: 0.5555555555555556
+- accuracy_Land Rover: 0.6428571428571429
+- accuracy_Mercedes-Benz: 0.509090909090909
+- accuracy_BMW: 0.5363636363636364
+- accuracy_Ram: 0.8333333333333334
 - accuracy_Lincoln: 0.6666666666666666
-- accuracy_Bugatti: 0.75
-- accuracy_Fisker: 0.2222222222222222
-- accuracy_Aston: 0.2692307692307692
-- accuracy_Honda: 0.3103448275862069
-- accuracy_Daewoo: 0.09090909090909091
-- accuracy_Buick: 0.375
+- accuracy_Bugatti: 0.5833333333333334
+- accuracy_Fisker: 0.1111111111111111
+- accuracy_Aston Martin: 0.4230769230769231
+- accuracy_Honda: 0.4482758620689655
+- accuracy_Daewoo: 0.45454545454545453
+- accuracy_Buick: 0.4583333333333333
 - accuracy_McLaren: 0.5
-- accuracy_Volkswagen: 0.25925925925925924
-- accuracy_Lamborghini: 0.7346938775510204
+- accuracy_Volkswagen: 0.37037037037037035
+- accuracy_Lamborghini: 0.6326530612244898
 - accuracy_Infiniti: 0.38461538461538464
-- accuracy_Spyker: 0.6666666666666666
-- accuracy_Plymouth: 0.5
-- accuracy_HUMMER: 0.8461538461538461
-- accuracy_Mazda: 0.42857142857142855
-- accuracy_Cadillac: 0.13333333333333333
+- accuracy_Spyker: 0.8888888888888888
+- accuracy_Plymouth: 0.75
+- accuracy_HUMMER: 0.9230769230769231
+- accuracy_Mazda: 0.5714285714285714
+- accuracy_Cadillac: 0.26666666666666666
 - accuracy_Nissan: 0.3684210526315789
-- accuracy_Scion: 0.16666666666666666
-- accuracy_AM: 0.4
-- accuracy_Jaguar: 0.13333333333333333
-- accuracy_Rolls-Royce: 0.32142857142857145
-- accuracy_Isuzu: 0.25
+- accuracy_Scion: 0.5
+- accuracy_AM: 0.8
+- accuracy_Jaguar: 0.2
+- accuracy_Rolls-Royce: 0.42857142857142855
+- accuracy_Isuzu: 0.75
 - accuracy_Tesla: 0.5
-- accuracy_Geo: 0.8333333333333334
-- accuracy_FIAT: 0.7692307692307693
-- accuracy_MINI: 0.6666666666666666
+- accuracy_Geo: 1.0
+- accuracy_FIAT: 0.8461538461538461
+- accuracy_MINI: 0.75
 - accuracy_Maybach: 0.3333333333333333
 - accuracy_Porsche: 0.42857142857142855
 
-### Top-1 Accuracy per Epoch
-[45.95548733574376, 26.39656231050626, 67.19877206271003, 33.76304481628118]
-
-### Top-5 Accuracy per Epoch
-[75.74827321916933, 52.854511975217555, 88.7643898753871, 58.011049695656006]
-
 ### Results
-Best Top-1 Accuracy = 33.76%, Hierarchical Consistency = 0.4481
+Best Top-1 Accuracy = 41.74%, Hierarchical Consistency = 0.5316
+
+
+--- Starting Phase 1 Baseline Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Exact Car Accuracy (Hard):  41.72%  (Target for fine-tuning)
+2. Make/Brand Accuracy (Easy): 52.82%  (Target for coarse features)
+----------------------------------------
+3. THE GAP:                    11.09% points
+
+### Gemini thoughts on accuracy above
+1. Exact Accuracy (42%): This is your floor. Your model is getting less than half of the cars right.
+
+2. Make Accuracy (53%): This is surprisingly low. It means that nearly half the time, the model doesn't even know it's looking at a "BMW" vs. a "Ford."
+
+3. The Gap (11%): This proves your hypothesis: Hierarchy matters. The model is significantly better at the "Easy" task (Make) than the "Hard" task (Model), but because you are using a standard flat classifier, it isn't effectively leveraging the easy task to help solve the hard one.
 
 ### Notes
 Training finished. Logged curves, confusion matrix, sample image.
 
+
 ### Images / Plots
-![img](plots/Name of experiment_loss_curve.png)
-![img](plots/Name of experiment_accuracy_curve.png)
-![img](plots/Name of experiment_11_23_12_41_confusion_matrix.png)
-![img](plots/Name of experiment_11_23_12_42_sample_val_image.png)
+![img](plots/Baseline_single_head_classification_loss_curve.png)
+![img](plots/Baseline_single_head_classification_accuracy_curve.png)
+![img](plots/Baseline_single_head_classification_confusion_matrix.png)
+![img](plots/Baseline_single_head_classification_11_23_22_14_sample_val_image.png)
 
 ---
 
