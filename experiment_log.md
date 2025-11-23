@@ -1,6 +1,6 @@
 # Experiment Log
 
-## Experiment: Baseline_single_head_classification
+## Experiment: Baseline single head classification all layers except fc are frozen
 **Date:** 2025-11-23 22:14:09
 
 ### Changes
@@ -104,6 +104,117 @@ Training finished. Logged curves, confusion matrix, sample image.
 ![img](plots/Baseline_single_head_classification_accuracy_curve.png)
 ![img](plots/Baseline_single_head_classification_confusion_matrix.png)
 ![img](plots/Baseline_single_head_classification_11_23_22_14_sample_val_image.png)
+
+---
+
+## Experiment: Baseline single head classification unfrozen layers
+**Date:** 2025-11-23 23:39:19
+
+### Changes
+Unfroze the rest of the model parameters, previously only the fc layer at the end was unfrozen and the ImageNet layers were frozen
+
+### Reason
+The model is using generic 'ImageNet' eyes. It knows what a 'wheel' is, but it doesn't know the specific shape of a '2012 BMW headlight.' 
+ The hypothesis: Exact Accuracy should jump significantly (likely to 60-70%+).
+
+### Metrics
+- Epoch 1: train_loss=4.784462774925203, train_top1=7.5057559442995885, train_top5=20.69071373665049, val_loss=3.68499265162033, val_top1=21.11724984448259, val_top5=48.31184776287419
+- Epoch 2: train_loss=2.4955783588924687, train_top1=49.13277053071825, train_top5=79.18649269859331, val_loss=1.8173698773041616, val_top1=57.76550030225329, val_top5=85.63535912538907
+- Epoch 3: train_loss=0.9346095656397154, train_top1=82.5786646259627, train_top5=97.19109745918561, val_loss=1.2652581198366235, val_top1=69.42909756842532, val_top5=91.7127071354856
+- Epoch 4: train_loss=0.31030790766934113, train_top1=95.88641596316194, train_top5=99.73906369915579, val_loss=1.023550943848251, val_top1=74.27869855062299, val_top5=93.43155305322655
+- Epoch 5: train_loss=0.11305745982108259, train_top1=99.04834995342966, train_top5=99.9846508058327, val_loss=0.9354753313509506, val_top1=76.05893190218818, val_top5=93.6771024934641
+- Epoch 6: train_loss=0.045973470542902954, train_top1=99.73906369915579, train_top5=100.0, val_loss=0.8813783135276546, val_top1=78.14610194515933, val_top5=94.29097609171625
+- Epoch 7: train_loss=0.024903129536089582, train_top1=99.84650805832693, train_top5=100.0, val_loss=0.8596108256855796, val_top1=78.33026400777443, val_top5=93.92265196648604
+- Epoch 8: train_loss=0.016833524169516126, train_top1=99.84650805832693, train_top5=100.0, val_loss=0.8592310819324355, val_top1=77.96193988254423, val_top5=94.229588657892
+- Epoch 9: train_loss=0.012860797598660679, train_top1=99.90790483499616, train_top5=100.0, val_loss=0.8550251524751358, val_top1=77.77777770752553, val_top5=94.229588657892
+- Epoch 10: train_loss=0.009989426578362905, train_top1=99.90790483499616, train_top5=100.0, val_loss=0.8674976508847184, val_top1=77.53222840310899, val_top5=93.79987717845675
+- Epoch 11: train_loss=0.008886432010145802, train_top1=99.87720644666155, train_top5=100.0, val_loss=0.8710677714857168, val_top1=77.65500303189984, val_top5=94.29097609171625
+- Epoch 12: train_loss=0.007135792681411286, train_top1=99.89255564082886, train_top5=100.0, val_loss=0.8540685079520725, val_top1=78.33026400777443, val_top5=94.4137507205071
+- Epoch 13: train_loss=0.006611056273041188, train_top1=99.89255564082886, train_top5=100.0, val_loss=0.8955176870759972, val_top1=77.22529163208382, val_top5=93.92265188686682
+- Epoch 14: train_loss=0.006172642445567701, train_top1=99.87720644666155, train_top5=100.0, val_loss=0.8960173458976933, val_top1=77.59361567769481, val_top5=94.22958873751121
+- Epoch 15: train_loss=0.012592953730571847, train_top1=99.7544128933231, train_top5=99.9846508058327, val_loss=1.1438741295377195, val_top1=71.51626769101568, val_top5=91.28299565605037
+- hierarchical_consistency: 0.8833640270104358
+- accuracy_Chrysler: 0.8833333333333333
+- accuracy_Ford: 0.9183673469387755
+- accuracy_Hyundai: 0.8795180722891566
+- accuracy_GMC: 0.8048780487804879
+- accuracy_Toyota: 0.90625
+- accuracy_Chevrolet: 0.8351063829787234
+- accuracy_smart: 1.0
+- accuracy_Suzuki: 0.9024390243902439
+- accuracy_Bentley: 0.9285714285714286
+- accuracy_Dodge: 0.9285714285714286
+- accuracy_Acura: 0.8163265306122449
+- accuracy_Volvo: 0.8666666666666667
+- accuracy_Audi: 0.9166666666666666
+- accuracy_Mitsubishi: 0.75
+- accuracy_Ferrari: 1.0
+- accuracy_Jeep: 0.9767441860465116
+- accuracy_Eagle: 0.7777777777777778
+- accuracy_Land Rover: 0.9285714285714286
+- accuracy_Mercedes-Benz: 0.7818181818181819
+- accuracy_BMW: 0.9090909090909091
+- accuracy_Ram: 1.0
+- accuracy_Lincoln: 1.0
+- accuracy_Bugatti: 0.9583333333333334
+- accuracy_Fisker: 0.7777777777777778
+- accuracy_Aston Martin: 1.0
+- accuracy_Honda: 0.9310344827586207
+- accuracy_Daewoo: 0.8181818181818182
+- accuracy_Buick: 0.875
+- accuracy_McLaren: 0.8333333333333334
+- accuracy_Volkswagen: 0.8148148148148148
+- accuracy_Lamborghini: 0.8775510204081632
+- accuracy_Infiniti: 0.8461538461538461
+- accuracy_Spyker: 0.8888888888888888
+- accuracy_Plymouth: 0.875
+- accuracy_HUMMER: 0.8461538461538461
+- accuracy_Mazda: 1.0
+- accuracy_Cadillac: 0.7666666666666667
+- accuracy_Nissan: 0.8421052631578947
+- accuracy_Scion: 1.0
+- accuracy_AM: 0.9
+- accuracy_Jaguar: 0.6666666666666666
+- accuracy_Rolls-Royce: 0.8928571428571429
+- accuracy_Isuzu: 1.0
+- accuracy_Tesla: 1.0
+- accuracy_Geo: 1.0
+- accuracy_FIAT: 0.9230769230769231
+- accuracy_MINI: 0.9166666666666666
+- accuracy_Maybach: 0.6666666666666666
+- accuracy_Porsche: 0.8571428571428571
+
+### Results
+Best Top-1 Accuracy = 78.33%, Hierarchical Consistency = 0.8834
+
+
+--- Starting Phase 2 Baseline Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Exact Car Accuracy (Hard):  75.92%  (Target for fine-tuning)
+2. Make/Brand Accuracy (Easy): 85.49%  (Target for coarse features)
+----------------------------------------
+3. THE GAP:                    9.56% points
+
+### Notes from Gemini
+This is a textbook result for your report. You have successfully created a strong narrative:
+
+1. Phase 1 (Frozen): Acc ~42%. The model was blind to specific features.
+
+1. Phase 2 (Fine-Tuned): Acc ~76%. The model learned the specific features, BUT the "Hierarchy Gap" barely moved (dropped from 11% to 9.5%).
+
+The Narrative for the report:
+
+"Fine-tuning improved raw performance, but it failed to solve the structural inconsistency. The model is still significantly better at guessing the Brand than the Car, implying it is learning them as separate tasks rather than a structured hierarchy. Phase 3 (Multi-Head) is designed to explicitly link these two tasks."
+
+### Notes
+Training finished. Logged curves, confusion matrix, sample image.
+
+### Images / Plots
+![img](plots/Baseline single head classification unfrozen layers_loss_curve.png)
+![img](plots/Baseline single head classification unfrozen layers_accuracy_curve.png)
+![img](plots/Baseline single head classification unfrozen layers_confusion_matrix.png)
+![img](plots/Baseline single head classification unfrozen layers_11_23_23_39_sample_val_image.png)
 
 ---
 
