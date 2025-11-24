@@ -218,3 +218,113 @@ Training finished. Logged curves, confusion matrix, sample image.
 
 ---
 
+## Experiment: Multihead_two_heads
+**Date:** 2025-11-24 18:20:10
+
+### Changes
+Added another classification head, so two in total. One head only predicts the make (Toyota, Mazda, Ford,...), The other predicts the full model label.
+
+### Reason
+We want to make sure that the model is learning the hierarchy. i.e., it at least gets better at predicting the 'easy' problem (make) and hoping for some improvement also for the 'hard' problem (full model label)
+
+### Metrics
+- Epoch 1: train_loss=7.946168717950102, train_top1=5.6792018419033, train_top5=17.405986184554198, val_loss=6.1999869121226014, val_top1=17.24984652751644, val_top5=45.365254738786014
+- Epoch 2: train_loss=4.365030718545043, train_top1=43.13123561130152, train_top5=74.02916346072053, val_loss=3.2356772683309294, val_top1=51.626764902825585, val_top5=84.22344989905407
+- Epoch 3: train_loss=1.7826110722738693, train_top1=75.34919416262201, train_top5=95.99386032233308, val_loss=2.116189131932876, val_top1=66.17556779555854, val_top5=90.11663592615473
+- Epoch 4: train_loss=0.6796543514188765, train_top1=90.91327705295473, train_top5=99.53952417498081, val_loss=1.7306543238840635, val_top1=72.62124006670629, val_top5=92.14241869454007
+- Epoch 5: train_loss=0.290493277543248, train_top1=96.89946277820414, train_top5=99.9846508058327, val_loss=1.5192235909480123, val_top1=75.32228357210856, val_top5=94.29097597931265
+- Epoch 6: train_loss=0.1342286072002405, train_top1=99.21719109746738, train_top5=100.0, val_loss=1.4107489994217677, val_top1=76.55003071241103, val_top5=94.41375068772271
+- Epoch 7: train_loss=0.06610052237260003, train_top1=99.70836531082118, train_top5=100.0, val_loss=1.370692363906448, val_top1=77.04112956946872, val_top5=94.65930010454285
+- Epoch 8: train_loss=0.043140668175537036, train_top1=99.83115886415963, train_top5=100.0, val_loss=1.3732357099789503, val_top1=76.85696748343621, val_top5=94.72068745874788
+- Epoch 9: train_loss=0.030294130302262325, train_top1=99.87720644666155, train_top5=100.0, val_loss=1.403000630067857, val_top1=77.59361567769481, val_top5=94.41375074392451
+- Epoch 10: train_loss=0.024227657228571033, train_top1=99.87720644666155, train_top5=100.0, val_loss=1.353612500366951, val_top1=77.96193980292502, val_top5=94.22958862510761
+- Epoch 11: train_loss=0.02020449945310035, train_top1=99.84650805832693, train_top5=100.0, val_loss=1.3687345451778836, val_top1=78.26887657395018, val_top5=94.29097597931265
+- Epoch 12: train_loss=0.015681779668512752, train_top1=99.89255564082886, train_top5=100.0, val_loss=1.3449159399580561, val_top1=78.69858810958722, val_top5=94.29097603551445
+- Epoch 13: train_loss=0.016340145225124184, train_top1=99.86185725249425, train_top5=100.0, val_loss=1.4388483062413955, val_top1=77.04112956946872, val_top5=93.98403926448927
+- Epoch 14: train_loss=0.14596560577749748, train_top1=98.81811204911742, train_top5=99.95395241749809, val_loss=2.0433415961163113, val_top1=67.83302641529625, val_top5=90.17802333656157
+- Epoch 15: train_loss=0.22840870121123694, train_top1=97.31389101252405, train_top5=99.95395241749809, val_loss=1.7162447706038708, val_top1=72.49846535829623, val_top5=91.89686927771993
+- hierarchical_consistency: 0.8809085328422345
+- accuracy_Chrysler: 0.9
+- accuracy_Ford: 0.8979591836734694
+- accuracy_Hyundai: 0.8554216867469879
+- accuracy_GMC: 0.8292682926829268
+- accuracy_Toyota: 0.875
+- accuracy_Chevrolet: 0.824468085106383
+- accuracy_smart: 1.0
+- accuracy_Suzuki: 0.7073170731707317
+- accuracy_Bentley: 0.9285714285714286
+- accuracy_Dodge: 0.8839285714285714
+- accuracy_Acura: 0.8775510204081632
+- accuracy_Volvo: 0.9
+- accuracy_Audi: 0.8981481481481481
+- accuracy_Mitsubishi: 0.75
+- accuracy_Ferrari: 0.9545454545454546
+- accuracy_Jeep: 0.9302325581395349
+- accuracy_Eagle: 0.7777777777777778
+- accuracy_Land Rover: 0.9285714285714286
+- accuracy_Mercedes-Benz: 0.8181818181818182
+- accuracy_BMW: 0.9363636363636364
+- accuracy_Ram: 1.0
+- accuracy_Lincoln: 0.8888888888888888
+- accuracy_Bugatti: 0.9583333333333334
+- accuracy_Fisker: 0.7777777777777778
+- accuracy_Aston Martin: 1.0
+- accuracy_Honda: 0.9310344827586207
+- accuracy_Daewoo: 0.9090909090909091
+- accuracy_Buick: 0.875
+- accuracy_McLaren: 1.0
+- accuracy_Volkswagen: 0.9259259259259259
+- accuracy_Lamborghini: 0.9183673469387755
+- accuracy_Infiniti: 0.9230769230769231
+- accuracy_Spyker: 0.8888888888888888
+- accuracy_Plymouth: 0.875
+- accuracy_HUMMER: 0.8461538461538461
+- accuracy_Mazda: 0.7142857142857143
+- accuracy_Cadillac: 0.8666666666666667
+- accuracy_Nissan: 0.8421052631578947
+- accuracy_Scion: 1.0
+- accuracy_AM General: 1.0
+- accuracy_Jaguar: 0.8666666666666667
+- accuracy_Rolls-Royce: 0.8571428571428571
+- accuracy_Isuzu: 1.0
+- accuracy_Tesla: 1.0
+- accuracy_Geo: 1.0
+- accuracy_FIAT: 0.9230769230769231
+- accuracy_MINI: 0.8333333333333334
+- accuracy_Maybach: 0.8333333333333334
+- accuracy_Porsche: 0.7142857142857143
+
+### Top-1 Accuracy per Epoch
+[5.6792018419033, 17.24984652751644, 43.13123561130152, 51.626764902825585, 75.34919416262201, 66.17556779555854, 90.91327705295473, 72.62124006670629, 96.89946277820414, 75.32228357210856, 99.21719109746738, 76.55003071241103, 99.70836531082118, 77.04112956946872, 99.83115886415963, 76.85696748343621, 99.87720644666155, 77.59361567769481, 99.87720644666155, 77.96193980292502, 99.84650805832693, 78.26887657395018, 99.89255564082886, 78.69858810958722, 99.86185725249425, 77.04112956946872, 98.81811204911742, 67.83302641529625, 97.31389101252405, 72.49846535829623]
+
+### Top-5 Accuracy per Epoch
+[17.405986184554198, 45.365254738786014, 74.02916346072053, 84.22344989905407, 95.99386032233308, 90.11663592615473, 99.53952417498081, 92.14241869454007, 99.9846508058327, 94.29097597931265, 100.0, 94.41375068772271, 100.0, 94.65930010454285, 100.0, 94.72068745874788, 100.0, 94.41375074392451, 100.0, 94.22958862510761, 100.0, 94.29097597931265, 100.0, 94.29097603551445, 100.0, 93.98403926448927, 99.95395241749809, 90.17802333656157, 99.95395241749809, 91.89686927771993]
+
+### Results
+Best Top-1 Accuracy = 78.70%, Hierarchical Consistency = 0.8809
+
+--- Starting Phase 3 (Multi-Head) Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Model Head Accuracy:    77.20% (The Hard Task)
+2. Make Head Accuracy:     85.51% (The Easy Task)
+----------------------------------------
+3. THE GAP:                8.31% points
+4. Internal Consistency:   90.44% (How often heads agree)
+
+### Notes from Gemini
+
+1. Why did Exact Accuracy go up? (75.9% $\to$ 77.2%) By forcing the model to answer "What Brand is this?", you gave the shared backbone (the ResNet feature extractor) a strong hint. It learned features that are distinct to specific brands (like BMW grilles or Porsche headlights) which helped the specific Car classifier do its job better. This is called Auxiliary Task Learning.
+2. Why is Consistency only 90%? This is the "Frankenstein Problem." In ~9.5% of your test set (approx. 760 images), your model is confused.Head 1 says: "This is a Toyota."Head 2 says: "This is a Honda Civic."Currently, your loss function (loss_make + loss_model) treats these as separate problems. It doesn't strictly punish the model for disagreeing with itself.
+
+### Notes
+Training finished. Logged curves, confusion matrix, sample image.
+
+### Images / Plots
+![img](plots/Multihead_two_heads_loss_curve.png)
+![img](plots/Multihead_two_heads_accuracy_curve.png)
+![img](plots/Multihead_two_heads_11_24_18_19_confusion_matrix.png)
+![img](plots/Multihead_two_heads_11_24_18_20_sample_val_image.png)
+
+---
+
