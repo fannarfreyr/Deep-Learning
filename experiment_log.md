@@ -922,3 +922,124 @@ Training finished. Logged curves, confusion matrix, sample image.
 
 ---
 
+## Experiment: 3_heads_with_cl_and_hierarchical_label_smoothing
+**Date:** 2025-11-26 22:42:55
+
+### Changes
+Added hierarchical label smoothing with a hierarchical soft loss function as the loss function on the model head
+
+### Reason
+Trying to bridge the gap between the make head and the model head, making them more consistent.
+
+### Metrics
+- Epoch 1: train_loss=4.588115953282951, train_top1=0.4911742133537989, train_top5=2.6707597851112816, val_loss=3.1350128959482473, val_top1=0.7366482494358931, val_top5=3.5604665418429344
+- Epoch 2: train_loss=2.5319399253277255, train_top1=0.6293169608595549, train_top5=2.7014581734458942, val_loss=1.776194697292836, val_top1=0.6138735410258256, val_top5=3.376304479227833
+- Epoch 3: train_loss=1.4216890382290985, train_top1=0.41442824251726784, train_top5=2.7014581734458942, val_loss=1.1871433316600184, val_top1=0.8594229588704727, val_top5=3.130755065627593
+- Epoch 4: train_loss=0.8846981452962388, train_top1=0.4911742132074176, train_top5=2.4558710666226133, val_loss=0.8790962532153519, val_top1=0.42971147943523635, val_top5=2.578268874562394
+- Epoch 5: train_loss=0.5632430776850773, train_top1=0.5218726016884113, train_top5=2.4251726784343823, val_loss=0.7437570173364245, val_top1=0.6138735420503376, val_top5=2.4554941661523264
+- Epoch 6: train_loss=3.01127228411179, train_top1=41.91864926388698, train_top5=74.15195701991424, val_loss=2.032766295620969, val_top1=60.65070593818117, val_top5=94.22958873751121
+- Epoch 7: train_loss=1.300238151433188, train_top1=73.43054489170873, train_top5=98.0046047582502, val_loss=1.4367740114749465, val_top1=74.4628606928573, val_top5=96.56230808489889
+- Epoch 8: train_loss=0.8247230226592842, train_top1=84.03683805897523, train_top5=99.35533384263104, val_loss=1.373936084313507, val_top1=78.20748918696076, val_top5=96.62369543910393
+- Epoch 9: train_loss=0.6345503529309312, train_top1=88.5034535722008, train_top5=99.58557175748273, val_loss=1.1855941198587856, val_top1=81.21546965541101, val_top5=96.62369543910393
+- Epoch 10: train_loss=0.4703084575882895, train_top1=91.68073675312267, train_top5=99.92325402916347, val_loss=1.0844873511915634, val_top1=83.42541440679223, val_top5=97.17618162694923
+- Epoch 11: train_loss=0.37752697121063195, train_top1=93.35379891501695, train_top5=99.92325402916347, val_loss=1.0802845553139955, val_top1=82.93431554036758, val_top5=97.72866781479453
+- Epoch 12: train_loss=0.3099531224299099, train_top1=95.47198771244732, train_top5=99.9846508058327, val_loss=1.0266581294432675, val_top1=85.45119706277397, val_top5=97.6672804605895
+- Epoch 13: train_loss=0.2799881542634708, train_top1=96.08595549319217, train_top5=99.95395241749809, val_loss=0.9995753409454177, val_top1=84.59177402428428, val_top5=97.91282987740964
+- Epoch 14: train_loss=0.23165604532085193, train_top1=96.66922486569455, train_top5=99.96930161166539, val_loss=0.995290495999537, val_top1=84.59177402428428, val_top5=97.6672804605895
+- Epoch 15: train_loss=0.24266435758297203, train_top1=96.88411357583948, train_top5=99.95395241749809, val_loss=0.9501916889474025, val_top1=86.37200737584948, val_top5=97.54450583179865
+- Epoch 16: train_loss=0.19956487069107987, train_top1=97.94320798158097, train_top5=99.9846508058327, val_loss=0.9438556897413372, val_top1=86.31061994202521, val_top5=97.42173112338858
+- Epoch 17: train_loss=0.1742423181271242, train_top1=97.85111280837978, train_top5=100.0, val_loss=0.9585502190850423, val_top1=86.12645795902934, val_top5=97.36034368956433
+- Epoch 18: train_loss=0.15412521085095057, train_top1=98.32693782756627, train_top5=100.0, val_loss=0.9719816430936641, val_top1=86.74033144487787, val_top5=97.60589310638447
+- Epoch 19: train_loss=0.14383311721790049, train_top1=98.61857252494244, train_top5=99.9846508058327, val_loss=0.959203199347958, val_top1=85.8809085422092, val_top5=97.11479427274419
+- Epoch 20: train_loss=0.1377236495853751, train_top1=98.5264773599386, train_top5=100.0, val_loss=1.0679205011340869, val_top1=85.20564762253642, val_top5=96.99201964395334
+- hierarchical_consistency: 0.022713321055862493
+- accuracy_Chrysler: 0.0
+- accuracy_Ford: 0.0
+- accuracy_Hyundai: 0.0
+- accuracy_GMC: 0.0
+- accuracy_Toyota: 0.0
+- accuracy_Chevrolet: 0.0
+- accuracy_smart: 0.0
+- accuracy_Suzuki: 0.0
+- accuracy_Bentley: 0.0
+- accuracy_Dodge: 0.0
+- accuracy_Acura: 0.7346938775510204
+- accuracy_Volvo: 0.0
+- accuracy_Audi: 0.0
+- accuracy_Mitsubishi: 0.0
+- accuracy_Ferrari: 0.0
+- accuracy_Jeep: 0.0
+- accuracy_Eagle: 0.0
+- accuracy_Land Rover: 0.0
+- accuracy_Mercedes-Benz: 0.0
+- accuracy_BMW: 0.0
+- accuracy_Ram: 0.0
+- accuracy_Lincoln: 0.0
+- accuracy_Bugatti: 0.0
+- accuracy_Fisker: 0.0
+- accuracy_Aston Martin: 0.0
+- accuracy_Honda: 0.0
+- accuracy_Daewoo: 0.0
+- accuracy_Buick: 0.0
+- accuracy_McLaren: 0.0
+- accuracy_Volkswagen: 0.0
+- accuracy_Lamborghini: 0.0
+- accuracy_Infiniti: 0.0
+- accuracy_Spyker: 0.0
+- accuracy_Plymouth: 0.0
+- accuracy_HUMMER: 0.0
+- accuracy_Mazda: 0.0
+- accuracy_Cadillac: 0.0
+- accuracy_Nissan: 0.0
+- accuracy_Scion: 0.0
+- accuracy_AM General: 0.1
+- accuracy_Jaguar: 0.0
+- accuracy_Rolls-Royce: 0.0
+- accuracy_Isuzu: 0.0
+- accuracy_Tesla: 0.0
+- accuracy_Geo: 0.0
+- accuracy_FIAT: 0.0
+- accuracy_MINI: 0.0
+- accuracy_Maybach: 0.0
+- accuracy_Porsche: 0.0
+
+### Top-1 Accuracy per Epoch
+[0.4911742133537989, 0.7366482494358931, 0.6293169608595549, 0.6138735410258256, 0.41442824251726784, 0.8594229588704727, 0.4911742132074176, 0.42971147943523635, 0.5218726016884113, 0.6138735420503376, 41.91864926388698, 60.65070593818117, 73.43054489170873, 74.4628606928573, 84.03683805897523, 78.20748918696076, 88.5034535722008, 81.21546965541101, 91.68073675312267, 83.42541440679223, 93.35379891501695, 82.93431554036758, 95.47198771244732, 85.45119706277397, 96.08595549319217, 84.59177402428428, 96.66922486569455, 84.59177402428428, 96.88411357583948, 86.37200737584948, 97.94320798158097, 86.31061994202521, 97.85111280837978, 86.12645795902934, 98.32693782756627, 86.74033144487787, 98.61857252494244, 85.8809085422092, 98.5264773599386, 85.20564762253642]
+
+### Top-5 Accuracy per Epoch
+[2.6707597851112816, 3.5604665418429344, 2.7014581734458942, 3.376304479227833, 2.7014581734458942, 3.130755065627593, 2.4558710666226133, 2.578268874562394, 2.4251726784343823, 2.4554941661523264, 74.15195701991424, 94.22958873751121, 98.0046047582502, 96.56230808489889, 99.35533384263104, 96.62369543910393, 99.58557175748273, 96.62369543910393, 99.92325402916347, 97.17618162694923, 99.92325402916347, 97.72866781479453, 99.9846508058327, 97.6672804605895, 99.95395241749809, 97.91282987740964, 99.96930161166539, 97.6672804605895, 99.95395241749809, 97.54450583179865, 99.9846508058327, 97.42173112338858, 100.0, 97.36034368956433, 100.0, 97.60589310638447, 99.9846508058327, 97.11479427274419, 100.0, 96.99201964395334]
+
+### Results
+Best Top-1 Accuracy = 86.74%, Hierarchical Consistency = 0.0227
+
+--- Starting Phase 8 (3-Head) Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Model Head Accuracy:    86.48% (The Hard Task)
+2. Type Head Accuracy:     93.87% (The Medium Task)
+3. Make Head Accuracy:     92.79% (The Easy Task)
+----------------------------------------
+4. Make-Model Consistency:   96.60% (Brand Matches Car)
+5. Type-Model Consistency:   95.93% (Type Matches Car)
+----------------------------------------
+Make-Gap:  6.31%
+Type-Gap:   7.39%
+
+### Notes from Gemini
+This result proves the hypothesis we discussed earlier: Hierarchical Label Smoothing (HLS) doesn't just improve accuracy; it improves logic.
+
+- Consistency Jump: Look at Make-Model Consistency. It jumped from ~95.2% (Phase 7) to 96.60% (Phase 8).
+
+- Interpretation: By using soft targets, you punished the model less for "near misses" (e.g., mistaking a BMW 328i for a BMW M3). This relaxed the gradients for within-family confusion, allowing the model to focus its energy on fixing the "egregious errors" (mistaking a BMW for a Ford). The result is a model that "thinks" more like a human taxonomy.
+
+### Notes
+Training finished. Logged curves, confusion matrix, sample image.
+
+### Images / Plots
+![img](plots/3_heads_with_cl_and_hierarchical_label_smoothing_loss_curve.png)
+![img](plots/3_heads_with_cl_and_hierarchical_label_smoothing_accuracy_curve.png)
+![img](plots/3_heads_with_cl_and_hierarchical_label_smoothing_11_26_22_42_confusion_matrix.png)
+![img](plots/3_heads_with_cl_and_hierarchical_label_smoothing_11_26_22_42_sample_val_image.png)
+
+---
+
