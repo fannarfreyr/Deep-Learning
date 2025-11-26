@@ -801,3 +801,124 @@ Training finished. Logged curves, confusion matrix, sample image.
 
 ---
 
+## Experiment: Multihead_with_curriculum_learning
+**Date:** 2025-11-26 20:49:44
+
+### Changes
+Added curriculum learning to the 2 head multihead model
+
+### Reason
+Want to see if the model performs better with 2 heads and curriculum learning than it did with 3 heads and curriculum learning. Since adding the 3rd head lowered accuracy.
+
+### Metrics
+- Epoch 1: train_loss=2.9216397398906953, train_top1=0.7521105141980046, train_top5=2.808902532617038, val_loss=2.0659009510201862, val_top1=0.6752608962553714, val_top5=3.0693677092271763
+- Epoch 2: train_loss=1.5368453630372734, train_top1=0.4758250191864927, train_top5=3.085188027482168, val_loss=1.0421296887561688, val_top1=0.3683241252302026, val_top5=1.289134438305709
+- Epoch 3: train_loss=0.7832474381852315, train_top1=0.6293169607131736, train_top5=3.161933998318699, val_loss=0.6485864711437144, val_top1=0.42971147943523635, val_top5=2.2099447513812156
+- Epoch 4: train_loss=0.4295160807423288, train_top1=0.5986185725249424, train_top5=2.839600920805269, val_loss=0.5305562795415987, val_top1=0.3683241252302026, val_top5=2.1485573961516695
+- Epoch 5: train_loss=0.24844782829559134, train_top1=0.5218726016884113, train_top5=3.0237912509593246, val_loss=0.4418061372141958, val_top1=0.42971147943523635, val_top5=2.4554941671768384
+- Epoch 6: train_loss=3.201858671207384, train_top1=35.51803529904791, train_top5=68.82578665205632, val_loss=2.075973282861446, val_top1=57.82688765645832, val_top5=88.58195207102888
+- Epoch 7: train_loss=1.4390643030885357, train_top1=68.88718341233084, train_top5=95.65617804831024, val_loss=1.3768154062911584, val_top1=72.13014123306603, val_top5=94.90484957756478
+- Epoch 8: train_loss=0.8683308392603033, train_top1=81.28933231590898, train_top5=98.54182655410591, val_loss=1.1112517902937455, val_top1=78.4530386599827, val_top5=96.74647020371579
+- Epoch 9: train_loss=0.5800666056956498, train_top1=88.18112049702947, train_top5=99.5088257866462, val_loss=0.9412694203480392, val_top1=82.07489258149711, val_top5=97.11479427274419
+- Epoch 10: train_loss=0.42824472632210525, train_top1=91.65003836478806, train_top5=99.81580966999232, val_loss=0.9124207124891568, val_top1=83.11847752336347, val_top5=96.86924491212586
+- Epoch 11: train_loss=0.326472525805212, train_top1=93.2156561839059, train_top5=99.95395241749809, val_loss=0.8101060945904277, val_top1=84.03928785985639, val_top5=97.79005524861878
+- Epoch 12: train_loss=0.2506344729538432, train_top1=95.28779739649224, train_top5=99.96930161166539, val_loss=0.8323795841909611, val_top1=84.28483736566271, val_top5=97.60589318600368
+- Epoch 13: train_loss=0.19177117090635087, train_top1=96.63852646916258, train_top5=100.0, val_loss=0.770942506869195, val_top1=86.0650706048243, val_top5=97.60589310638447
+- Epoch 14: train_loss=0.1502258683202455, train_top1=97.06830390584716, train_top5=100.0, val_loss=0.7626459043475292, val_top1=85.6967464795941, val_top5=97.60589318600368
+- Epoch 15: train_loss=0.12664383572175333, train_top1=97.94320798158097, train_top5=100.0, val_loss=0.7609888896062522, val_top1=86.00368319441746, val_top5=97.48311847759362
+- Epoch 16: train_loss=0.10497911840517157, train_top1=98.1580966917259, train_top5=100.0, val_loss=0.7042057868013212, val_top1=86.49478202805774, val_top5=97.72866789441375
+- Epoch 17: train_loss=0.11181926385929103, train_top1=98.14274750575595, train_top5=100.0, val_loss=0.7396765453014877, val_top1=86.49478200464031, val_top5=97.54450583179865
+- Epoch 18: train_loss=0.1326828653571794, train_top1=97.75901764337594, train_top5=99.96930161166539, val_loss=0.808637122514425, val_top1=84.59177404770169, val_top5=97.29895641497852
+- Epoch 19: train_loss=0.12021543110505672, train_top1=98.06600152672206, train_top5=99.9846508058327, val_loss=0.742601397123126, val_top1=86.2492326674394, val_top5=97.60589318600368
+- Epoch 20: train_loss=0.09261623630593213, train_top1=98.41903299257011, train_top5=100.0, val_loss=0.79258974371255, val_top1=85.02148558333873, val_top5=96.99201964395334
+- hierarchical_consistency: 0.9441375076734193
+- accuracy_Chrysler: 0.9333333333333333
+- accuracy_Ford: 0.9489795918367347
+- accuracy_Hyundai: 0.963855421686747
+- accuracy_GMC: 0.9024390243902439
+- accuracy_Toyota: 0.90625
+- accuracy_Chevrolet: 0.925531914893617
+- accuracy_smart: 1.0
+- accuracy_Suzuki: 0.926829268292683
+- accuracy_Bentley: 0.9464285714285714
+- accuracy_Dodge: 0.9553571428571429
+- accuracy_Acura: 0.9591836734693877
+- accuracy_Volvo: 0.9333333333333333
+- accuracy_Audi: 0.9814814814814815
+- accuracy_Mitsubishi: 0.8333333333333334
+- accuracy_Ferrari: 1.0
+- accuracy_Jeep: 0.9534883720930233
+- accuracy_Eagle: 0.8888888888888888
+- accuracy_Land Rover: 0.9285714285714286
+- accuracy_Mercedes-Benz: 0.9090909090909091
+- accuracy_BMW: 0.9363636363636364
+- accuracy_Ram: 1.0
+- accuracy_Lincoln: 0.8888888888888888
+- accuracy_Bugatti: 0.9583333333333334
+- accuracy_Fisker: 0.8888888888888888
+- accuracy_Aston Martin: 0.9615384615384616
+- accuracy_Honda: 0.9655172413793104
+- accuracy_Daewoo: 1.0
+- accuracy_Buick: 0.9583333333333334
+- accuracy_McLaren: 1.0
+- accuracy_Volkswagen: 0.9629629629629629
+- accuracy_Lamborghini: 0.9591836734693877
+- accuracy_Infiniti: 0.8461538461538461
+- accuracy_Spyker: 0.9444444444444444
+- accuracy_Plymouth: 1.0
+- accuracy_HUMMER: 1.0
+- accuracy_Mazda: 0.8571428571428571
+- accuracy_Cadillac: 0.9666666666666667
+- accuracy_Nissan: 0.9736842105263158
+- accuracy_Scion: 1.0
+- accuracy_AM General: 1.0
+- accuracy_Jaguar: 0.6666666666666666
+- accuracy_Rolls-Royce: 1.0
+- accuracy_Isuzu: 1.0
+- accuracy_Tesla: 1.0
+- accuracy_Geo: 1.0
+- accuracy_FIAT: 1.0
+- accuracy_MINI: 0.8333333333333334
+- accuracy_Maybach: 1.0
+- accuracy_Porsche: 0.8571428571428571
+
+### Top-1 Accuracy per Epoch
+[0.7521105141980046, 0.6752608962553714, 0.4758250191864927, 0.3683241252302026, 0.6293169607131736, 0.42971147943523635, 0.5986185725249424, 0.3683241252302026, 0.5218726016884113, 0.42971147943523635, 35.51803529904791, 57.82688765645832, 68.88718341233084, 72.13014123306603, 81.28933231590898, 78.4530386599827, 88.18112049702947, 82.07489258149711, 91.65003836478806, 83.11847752336347, 93.2156561839059, 84.03928785985639, 95.28779739649224, 84.28483736566271, 96.63852646916258, 86.0650706048243, 97.06830390584716, 85.6967464795941, 97.94320798158097, 86.00368319441746, 98.1580966917259, 86.49478202805774, 98.14274750575595, 86.49478200464031, 97.75901764337594, 84.59177404770169, 98.06600152672206, 86.2492326674394, 98.41903299257011, 85.02148558333873]
+
+### Top-5 Accuracy per Epoch
+[2.808902532617038, 3.0693677092271763, 3.085188027482168, 1.289134438305709, 3.161933998318699, 2.2099447513812156, 2.839600920805269, 2.1485573961516695, 3.0237912509593246, 2.4554941671768384, 68.82578665205632, 88.58195207102888, 95.65617804831024, 94.90484957756478, 98.54182655410591, 96.74647020371579, 99.5088257866462, 97.11479427274419, 99.81580966999232, 96.86924491212586, 99.95395241749809, 97.79005524861878, 99.96930161166539, 97.60589318600368, 100.0, 97.60589310638447, 100.0, 97.60589318600368, 100.0, 97.48311847759362, 100.0, 97.72866789441375, 100.0, 97.54450583179865, 99.96930161166539, 97.29895641497852, 99.9846508058327, 97.60589318600368, 100.0, 96.99201964395334]
+
+### Results
+Best Top-1 Accuracy = 86.49%, Hierarchical Consistency = 0.9441
+
+--- Starting Phase 5.5 (Multi-Head) Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Model Head Accuracy:    85.51% (The Hard Task)
+2. Make Head Accuracy:     92.15% (The Easy Task)
+----------------------------------------
+3. THE GAP:                6.64% points
+4. Internal Consistency:   95.77% (How often heads agree)
+
+### Notes from Gemini
+
+The Analysis for Your Report
+"Why didn't the 2-Head Curriculum work as well?" The 2-Head model hits a "semantic gap."
+
+- Jumping from "Brand" (Make) to "Specific Trim" (Model) is a big leap.
+
+- The Type Head acts as a bridge. It teaches the backbone to recognize Body Shapes (Sedan vs. SUV) explicitly.
+
+- Even though Curriculum Learning helped the 2-Head model (it beat the non-curriculum 2-Head), it couldn't match the 3-Head model because it simply lacked that "Body Shape" knowledge.
+
+### Notes
+Training finished. Logged curves, confusion matrix, sample image.
+
+### Images / Plots
+![img](plots/Multihead_with_curriculum_learning_loss_curve.png)
+![img](plots/Multihead_with_curriculum_learning_accuracy_curve.png)
+![img](plots/Multihead_with_curriculum_learning_11_26_20_49_confusion_matrix.png)
+![img](plots/Multihead_with_curriculum_learning_11_26_20_49_sample_val_image.png)
+
+---
+
