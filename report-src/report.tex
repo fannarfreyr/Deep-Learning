@@ -86,17 +86,25 @@ pdfkeywords={First keyword, Second keyword, More},
 
 
 \section{Introduction}
-\textbf{FIND GOOD MOTIVE ABOUT WHY WE DO THIS}
-In particular, fine-grained vehicle classification, which differentiates between various types, makes, and models of cars, presents significant challenges. This is due to the vast number of vehicle types, varying lighting conditions, occlusions and different viewpoints from which vehicles may be captured in images. Therefore, building a robust vehicle classification system requires a powerful model that can distinguish subtle differences between similar vehicle models.
 
-The motivation behind this project is to explore the capabilities of transformer-based models for fine-grained vehicle classification and to investigate their potential for hierarchical classification tasks. By using the strength of transformers we aim to develop a system that can classify vehicles based on their type, make and model from images. This approach could provide higher accuracy in vehicle recognition compared to traditional convolutional neural networks (CNNs), which have been the go-to architecture for such tasks in the past. Our project investigates using transformer models, which are known for their ability to handle complex hierarchical relationships in data. If the transformer-based approach proves ineffective for this specific task, we will revert to proven CNN architectures, such as ResNet or VGG, which have already demonstrated strong performance in vehicle classification tasks.
+Fine-grained vehicle classification, which differentiates between various types, makes, and models of cars, presents significant challenges. This difficulty arises from the large number of visually similar vehicle categories, variations in lighting and weather conditions, occlusions, and the diverse viewpoints from which vehicles may be captured. As a result, building a robust vehicle classification system requires a model capable of recognizing subtle visual cues while generalizing across highly variable real-world conditions.
 
-In particular, we focus on the Stanford Cars dataset, which consists of over 16,000 high-resolution images of 196 car models that are labeled with the vehicle type, make and model. This dataset is ideal for training and evaluating fine-grained vehicle classification models because it contains diverse images taken from multiple angles and in different lighting conditions. Our project aims to not only assess the effectiveness of transformers in this domain but also explore hierarchical classification methods. Hierarchical classification can significantly improve accuracy by using the vehicle's broader category (such as sedan, SUV or coupe) to inform predictions for its specific model and make.
+In this project, we aim to explore and compare different strategies for hierarchical image classification on the Stanford Cars Dataset (Krause et al., 2013). The dataset contains 16,185 high-resolution images labeled with three hierarchical attributes: vehicle make, vehicle type, and vehicle model. These labels naturally form a multi-level taxonomy, making the dataset well-suited for studying hierarchical classification approaches.
 
-Furthermore, to ensure that our model generalizes well and does not overfit, especially given the small size of the dataset, we plan to use techniques like data augmentation and regularization. These techniques will help the model adapt to variations in image quality, lighting and occlusions, which are common challenges in real-world vehicle recognition scenarios.
+Our baseline approach uses a ResNet-50 model pretrained on ImageNet as the backbone architecture. Initially, we treat the problem as a flat classification task by predicting the complete car label (containing make, type, and model) as a single class among 196 possible categories. This serves as our starting point for evaluating how well a standard single-head classifier performs on fine-grained classification without explicit hierarchical structure.
 
-Ultimately, this project seeks to answer an important question: Can transformer-based models provide superior vehicle classification performance compared to traditional CNNs, particularly when it comes to fine-grained vehicle classification with hierarchical labels? To answer this, we will carry out various experiments with different architectures, loss functions and training strategies and benchmark their performance against existing research in the field.
+Building on this baseline, the primary objective of this project is to investigate how different hierarchical output designs influence classification performance. Specifically, we focus on three classification strategies:
 
+\begin{enumerate}
+    \item \textbf{Single-head (flat) classifier:}
+    Predicts the entire label (make, type, and model) as one combined class. This ignores the hierarchical relationships.
+    \item \textbf{Two-head classifier:}
+    One head predicts the vehicle make, while the second head predicts the combined type+model label. 
+    \item \textbf{Three-head classifier:}
+    Predicts make, type, and model independently using three parallel classification heads.
+\end{enumerate}   
+
+After we evaluated these 3 variants, we will further enhance their performance using targeted regularization and optimization strategies. These include data augmentation, dropout, weight decay, and learning-rate adjustments, all of which can help reduce overfitting.
 
 \section{Headings: first level}
 \label{sec:headings}
