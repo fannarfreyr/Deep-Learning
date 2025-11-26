@@ -670,3 +670,134 @@ Training finished. Logged curves, confusion matrix, sample image.
 
 ---
 
+## Experiment: 3_head_curriculum_learning
+**Date:** 2025-11-26 18:42:01
+
+### Changes
+Curriculum learning with the 3 head model. For the first 5 epochs the model only trains Make and Type heads. Then it starts training Model head
+
+### Reason
+Want the model to learn the easy and medium tasks first before focusing on learning the harder task (differentiating between models)
+
+### Metrics
+- Epoch 1: train_loss=4.580847987118631, train_top1=0.6293169608595549, train_top5=2.8702993092862625, val_loss=3.114430477313281, val_top1=0.3683241252302026, val_top5=2.578268876611418
+- Epoch 2: train_loss=2.4855471657316044, train_top1=0.7214121258633922, train_top5=3.0237912508129434, val_loss=1.823061449971208, val_top1=0.6138735420503376, val_top5=3.0079803550221422
+- Epoch 3: train_loss=1.4232661629125694, train_top1=0.6907137375287797, train_top5=2.854950114972575, val_loss=1.1662501511652825, val_top1=0.6138735420503376, val_top5=2.885205646612075
+- Epoch 4: train_loss=0.8335868630240902, train_top1=0.5065234075211051, train_top5=2.808902532617038, val_loss=0.9813216867587404, val_top1=0.9208103130755064, val_top5=2.4554941682013505
+- Epoch 5: train_loss=0.5705175682936644, train_top1=0.5986185725249424, train_top5=2.5172678434382196, val_loss=0.8192884581011449, val_top1=0.6752608962553714, val_top5=2.4554941671768384
+- Epoch 6: train_loss=3.386254566409271, train_top1=42.51726784460927, train_top5=74.48963929159497, val_loss=2.268815608168029, val_top1=64.02701040774932, val_top5=94.53652542891716
+- Epoch 7: train_loss=1.4526606804393203, train_top1=76.1933998359686, train_top5=98.15809669992325, val_loss=1.6998853187315153, val_top1=74.40147325903305, val_top5=96.37814602228379
+- Epoch 8: train_loss=0.9410825479424009, train_top1=84.0828856543587, train_top5=99.17114351496546, val_loss=1.3114753562735224, val_top1=78.69858807680284, val_top5=97.23756906077348
+- Epoch 9: train_loss=0.632857930870671, train_top1=89.20951649804162, train_top5=99.70836531082118, val_loss=1.240549970946479, val_top1=82.2590546206948, val_top5=97.48311845417619
+- Epoch 10: train_loss=0.47602228595948826, train_top1=92.00306983063611, train_top5=99.81580966999232, val_loss=1.051944091614219, val_top1=83.5481890027987, val_top5=97.91282987740964
+- Epoch 11: train_loss=0.3667394516016096, train_top1=94.41289331490319, train_top5=99.92325402916347, val_loss=1.0696591225923242, val_top1=85.75813383379914, val_top5=98.40392879066913
+- Epoch 12: train_loss=0.31503319290172843, train_top1=95.01151190148073, train_top5=99.9846508058327, val_loss=1.135866957547988, val_top1=83.42541440679223, val_top5=98.2197666484348
+- Epoch 13: train_loss=0.2543669676744105, train_top1=96.39293936248569, train_top5=99.9846508058327, val_loss=1.0220303097848442, val_top1=85.51258444976338, val_top5=98.15837929422977
+- Epoch 14: train_loss=0.22220584040683503, train_top1=96.65387567152725, train_top5=99.9846508058327, val_loss=0.9501947632152072, val_top1=87.10865557010807, val_top5=97.97421723161467
+- Epoch 15: train_loss=0.20142068258863363, train_top1=97.09900230237912, train_top5=100.0, val_loss=1.0444256790288757, val_top1=86.31061994202521, val_top5=98.09699194002474
+- Epoch 16: train_loss=0.17568825190102058, train_top1=97.97390636171822, train_top5=99.9846508058327, val_loss=0.9865304949533874, val_top1=85.8809084860074, val_top5=98.09699194002474
+- Epoch 17: train_loss=0.15270119894950643, train_top1=98.0046047582502, train_top5=100.0, val_loss=1.0544231429723525, val_top1=85.57397169156481, val_top5=97.91282995702885
+- Epoch 18: train_loss=0.14869341545395914, train_top1=98.28089024506436, train_top5=100.0, val_loss=0.9716555244575767, val_top1=86.2492326674394, val_top5=98.15837929422977
+- Epoch 19: train_loss=0.10921078348333618, train_top1=98.91020721412126, train_top5=100.0, val_loss=0.9950637875926356, val_top1=86.6175567926696, val_top5=98.15837929422977
+- Epoch 20: train_loss=0.11592310732223396, train_top1=98.72601688411359, train_top5=99.96930161166539, val_loss=1.051704814201341, val_top1=86.49478206084213, val_top5=97.79005524861878
+- hierarchical_consistency: 0.022099447513812154
+- accuracy_Chrysler: 0.0
+- accuracy_Ford: 0.0
+- accuracy_Hyundai: 0.0
+- accuracy_GMC: 0.0
+- accuracy_Toyota: 0.0
+- accuracy_Chevrolet: 0.0
+- accuracy_smart: 0.0
+- accuracy_Suzuki: 0.0
+- accuracy_Bentley: 0.0
+- accuracy_Dodge: 0.0
+- accuracy_Acura: 0.7142857142857143
+- accuracy_Volvo: 0.0
+- accuracy_Audi: 0.0
+- accuracy_Mitsubishi: 0.0
+- accuracy_Ferrari: 0.0
+- accuracy_Jeep: 0.0
+- accuracy_Eagle: 0.0
+- accuracy_Land Rover: 0.0
+- accuracy_Mercedes-Benz: 0.0
+- accuracy_BMW: 0.0
+- accuracy_Ram: 0.0
+- accuracy_Lincoln: 0.0
+- accuracy_Bugatti: 0.0
+- accuracy_Fisker: 0.0
+- accuracy_Aston Martin: 0.038461538461538464
+- accuracy_Honda: 0.0
+- accuracy_Daewoo: 0.0
+- accuracy_Buick: 0.0
+- accuracy_McLaren: 0.0
+- accuracy_Volkswagen: 0.0
+- accuracy_Lamborghini: 0.0
+- accuracy_Infiniti: 0.0
+- accuracy_Spyker: 0.0
+- accuracy_Plymouth: 0.0
+- accuracy_HUMMER: 0.0
+- accuracy_Mazda: 0.0
+- accuracy_Cadillac: 0.0
+- accuracy_Nissan: 0.0
+- accuracy_Scion: 0.0
+- accuracy_AM General: 0.0
+- accuracy_Jaguar: 0.0
+- accuracy_Rolls-Royce: 0.0
+- accuracy_Isuzu: 0.0
+- accuracy_Tesla: 0.0
+- accuracy_Geo: 0.0
+- accuracy_FIAT: 0.0
+- accuracy_MINI: 0.0
+- accuracy_Maybach: 0.0
+- accuracy_Porsche: 0.0
+
+### Top-1 Accuracy per Epoch
+[0.6293169608595549, 0.3683241252302026, 0.7214121258633922, 0.6138735420503376, 0.6907137375287797, 0.6138735420503376, 0.5065234075211051, 0.9208103130755064, 0.5986185725249424, 0.6752608962553714, 42.51726784460927, 64.02701040774932, 76.1933998359686, 74.40147325903305, 84.0828856543587, 78.69858807680284, 89.20951649804162, 82.2590546206948, 92.00306983063611, 83.5481890027987, 94.41289331490319, 85.75813383379914, 95.01151190148073, 83.42541440679223, 96.39293936248569, 85.51258444976338, 96.65387567152725, 87.10865557010807, 97.09900230237912, 86.31061994202521, 97.97390636171822, 85.8809084860074, 98.0046047582502, 85.57397169156481, 98.28089024506436, 86.2492326674394, 98.91020721412126, 86.6175567926696, 98.72601688411359, 86.49478206084213]
+
+### Top-5 Accuracy per Epoch
+[2.8702993092862625, 2.578268876611418, 3.0237912508129434, 3.0079803550221422, 2.854950114972575, 2.885205646612075, 2.808902532617038, 2.4554941682013505, 2.5172678434382196, 2.4554941671768384, 74.48963929159497, 94.53652542891716, 98.15809669992325, 96.37814602228379, 99.17114351496546, 97.23756906077348, 99.70836531082118, 97.48311845417619, 99.81580966999232, 97.91282987740964, 99.92325402916347, 98.40392879066913, 99.9846508058327, 98.2197666484348, 99.9846508058327, 98.15837929422977, 99.9846508058327, 97.97421723161467, 100.0, 98.09699194002474, 99.9846508058327, 98.09699194002474, 100.0, 97.91282995702885, 100.0, 98.15837929422977, 100.0, 98.15837929422977, 99.96930161166539, 97.79005524861878]
+
+### Results
+Best Top-1 Accuracy = 87.11%, Hierarchical Consistency = 0.0221
+
+--- Starting Phase 7 (3-Head) Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Model Head Accuracy:    86.15% (The Hard Task)
+2. Type Head Accuracy:     92.81% (The Medium Task)
+3. Make Head Accuracy:     92.48% (The Easy Task)
+----------------------------------------
+4. Make-Model Consistency:   95.21% (Brand Matches Car)
+5. Type-Model Consistency:   95.98% (Type Matches Car)
+----------------------------------------
+Make-Gap:  6.33%
+Type-Gap:   6.67%
+
+### Notes from Gemini
+1. Proof of Concept: Curriculum Learning Works
+- Without Curriculum (Phase 6): Model Accuracy was 85.36%. The backbone was confused by trying to learn 3 tasks at once ("Interference").
+
+- With Curriculum (Phase 7): Model Accuracy is 86.15%.
+
+- The Gain: You squeezed out +0.79% accuracy purely by changing the order of training.
+
+- Conclusion: By freezing the Model Head for 5 epochs, you forced the backbone to become an expert at "Shapes" (Type) and "Brands" (Make) first. When you finally turned on the Model Head, it didn't have to learn features from scratch; it just had to learn how to combine the high-quality Shape and Brand features it already had.
+
+2. High Consistency
+- Your Make-Model Consistency (95.21%) and Type-Model Consistency (95.98%) are exceptionally high.
+
+- This means your model is "thinking" logically. It almost never predicts "Convertible" and "Ford F-150" at the same time.
+
+- This is a strong qualitative argument for your Master's defense: Your model isn't just accurate; it is chemically consistent.
+
+### Notes
+Training finished. Logged curves, confusion matrix, sample image.
+
+### Images / Plots
+![img](plots/3_head_curriculum_learning_loss_curve.png)
+![img](plots/3_head_curriculum_learning_accuracy_curve.png)
+![img](plots/3_head_curriculum_learning_11_26_18_41_confusion_matrix.png)
+![img](plots/3_head_curriculum_learning_11_26_18_42_sample_val_image.png)
+
+---
+
