@@ -106,6 +106,105 @@ Building on this baseline, the primary objective of this project is to investiga
 
 After we evaluated these 3 variants, we will further enhance their performance using targeted regularization and optimization strategies. These include data augmentation, dropout, weight decay, and learning-rate adjustments, all of which can help reduce overfitting.
 
+\section{Related Work}
+
+\section{Methods}
+\subsection{Dataset and Pre-Processing}
+\begin{itemize}
+	\item Describe the dataset size 
+	\item Define your hierarchy: Make (Easy, e.g., BMW) $\to$ Type (Medium, e.g., Sedan) $\to$ Model (Hard, e.g., 3-Series).
+\end{itemize}
+
+\subsection{Model Architecture}
+\begin{itemize}
+	\item \textbf{Backbone:} ResNet-50 (pretrained on ImageNet)
+	\item \textbf{Multi-Task Heads:} Describe how you split the network after the backbone into 2 heads (Make/Model) or 3 heads (Make/Type/Model).
+	\item \textbf{Multi-Head Architecture:} Describe splitting the network after the backbone into specific heads (Make, Type, Model). Explain the loss function (e.g., $L_{total} = L_{make} + L_{type} + L_{model}$)
+\end{itemize}
+
+\subsection{Training Strategies}
+\begin{itemize}
+	\item \textbf{Baseline:} Frozen vs. Unfrozen backbones.
+	\item \textbf{Data Augmentation:} Describe the geometric/color transforms used to prevent overfitting (Experiment Multihead\_two\_heads\_with\_data\_augmentation).
+	\item \textbf{Curriculum Learning:} Explain the strategy of freezing the "Hard" head (Model) for the first 5 epochs to let the backbone learn generic shapes (Type) and brands (Make) first.
+	\item \textbf{Hierarchical Label Smoothing (HLS):} Explain replacing hard targets (0/1) with soft targets to penalize "near misses" less than "far misses".
+\end{itemize}
+
+\section{Results}
+Organize results by "Research Question" rather than date.
+
+\subsection{Establishing the "Hierarchy Gap" (Baselines)}
+\begin{itemize}
+	\item \textbf{Objective:} Show that flat classifiers fail to capture relationships
+	\item \textbf{Data:} Compare the Frozen Baseline (~42\% Acc) vs. Unfrozen (~76\% Acc).
+	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.5\%) and Model Accuracy (75.9\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
+	
+\end{itemize}
+
+\subsection{The Impact of Regularization \& Class Balancing}
+\begin{itemize}
+	\item \textbf{Objective:} Solving the overfitting problem. 
+	\item \textbf{Data:} Show the jump from ~77\% (Phase 3) to 86.6\% (Phase 4) just by adding Data Augmentation.
+	\item \textbf{Observation:} Note that Class Balancing (Phase 5) helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect).
+	
+\end{itemize}
+
+\subsection{Architectural Ablation: The Necessity of "Type"}
+\begin{itemize}
+	\item \textbf{Objective:} Solving the overfitting problem. 
+	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86.49\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 89\%).
+	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
+		
+\end{itemize}
+
+\subsection{Optimization Dynamics: Interference vs. Curriculum}
+\begin{itemize}
+	\item \textbf{Objective:} Solving the "Task Interference" problem in Multi-Task Learning.
+	\item \textbf{Data:} Contrast Experiment 6 (3-Head No Curriculum: 85.36\%) vs. Experiment 7 (3-Head With Curriculum: 86.15\%).
+	\item \textbf{Key Finding:} Without curriculum, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
+		
+\end{itemize}
+
+\subsection{SOTA Performance: Label Smoothing \& LR Scheduler}
+\begin{itemize}
+	\item \textbf{Objective:} Pushing the limit. 
+	\item \textbf{Data:} Present the final model (Experiment 10) achieving 89.07\% Top-1 Accuracy.
+	\item \textbf{Key Finding:} The Scheduler + HLS closed the consistency gap significantly.
+		
+\end{itemize}
+
+
+\section{Discussion}
+This is the most critical section for grading. Interpret the patterns.
+
+\subsection{The "Frankenstein Car" Problem}
+\begin{itemize}
+	\item Discuss Hierarchical Consistency.
+	\item In early experiments, consistency was low (~90\%). The model would predict "Toyota" (Make) and "Honda Civic" (Model).
+	\item By Experiment 9 (HLS), consistency reached 96.6\%, and finally 97.66\% with the scheduler. This proves the model learned the taxonomy, not just pixel patterns.
+\end{itemize}
+
+
+\subsection{The Role of "Type" as Scaffolding}
+\begin{itemize}
+	\item Analyze why 3\_head\_curriculum eventually beat 2\_head\_curriculum.
+	\item The "Type" head (Sedan, SUV, Coupe) provides Intermediate Scaffolding. It is easier to learn than "Model" but provides more structural information than "Make." It bridges the semantic gap.
+\end{itemize}
+
+
+\subsection{The "Free Lunch" of Training Schedules}
+\begin{itemize}
+	\item Discuss the final experiment (LR Scheduler).
+	\item ou gained ~1.5\% accuracy (87.9\% $\to$ 89.07\%) just by changing the learning rate schedule. This indicates the architecture was sound, but the optimizer needed "fine-grained" control to settle into the sharp minima of the loss landscape.
+\end{itemize}
+
+\section{Conclusion}
+Conclude that while ResNet50 is powerful, structuring the learning process (Curriculum) and enforcing taxonomy (Multi-head + HLS) creates a model that is not only more accurate but logically robust.
+
+
+
+
+
 \section{Headings: first level}
 \label{sec:headings}
 
