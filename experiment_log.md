@@ -1181,3 +1181,28 @@ Training finished. Logged curves, confusion matrix, sample image.
 
 ---
 
+## Experiment: 3_heads_final_with_test_time_augmentation
+**Date:** 2025-11-28 13:12:08
+
+## Changes
+No changes to the model architecture, however we did implement a TTA inference strategy
+
+## Reason
+To measure model robustness
+
+## Results
+
+3 augmentations
+
+--- Starting Phase 8 (3-Head) Evaluation ---
+Test Set Size: 8041
+----------------------------------------
+1. Model Head Accuracy:    88.57% (The Hard Task)
+2. Type Head Accuracy:     95.24% (The Medium Task)
+3. Make Head Accuracy:     94.32% (The Easy Task)
+----------------------------------------
+4. Make-Model Consistency: 97.64% (Brand Matches Car)
+5. Type-Model Consistency: 96.94% (Type Matches Car)
+----------------------------------------
+Make-Gap:  5.75%
+Type-Gap:  6.67%
