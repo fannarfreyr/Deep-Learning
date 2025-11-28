@@ -130,6 +130,9 @@ After we evaluated these 3 variants, we will further enhance their performance u
 	\item \textbf{Hierarchical Label Smoothing (HLS):} Explain replacing hard targets (0/1) with soft targets to penalize "near misses" less than "far misses".
 \end{itemize}
 
+\subsection{Inference Strategies}
+Define the math of TTA (flipping + averaging)
+
 \section{Results}
 Organize results by "Research Question" rather than date.
 
@@ -173,6 +176,9 @@ Organize results by "Research Question" rather than date.
 		
 \end{itemize}
 
+\subsection{The Impact of Inference Strategies}
+either talk about the results of tta here or above in SOTA, report the final number (88.57\%)
+
 
 \section{Discussion}
 This is the most critical section for grading. Interpret the patterns.
@@ -197,6 +203,9 @@ This is the most critical section for grading. Interpret the patterns.
 	\item Discuss the final experiment (LR Scheduler).
 	\item ou gained ~1.5\% accuracy (87.9\% $\to$ 89.07\%) just by changing the learning rate schedule. This indicates the architecture was sound, but the optimizer needed "fine-grained" control to settle into the sharp minima of the loss landscape.
 \end{itemize}
+
+\subsection{Robustness via Inference Ensembling}
+Explain how TTA serves as a proxy for measuring model robustness, argue that this proves our model is robust and "production-ready"
 
 \section{Conclusion}
 Conclude that while ResNet50 is powerful, structuring the learning process (Curriculum) and enforcing taxonomy (Multi-head + HLS) creates a model that is not only more accurate but logically robust.
