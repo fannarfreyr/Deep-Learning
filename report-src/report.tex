@@ -175,46 +175,77 @@ Organize results by "Research Question" rather than date.
 \subsection{Establishing the "Hierarchy Gap" (Baselines)}
 \begin{itemize}
 	\item \textbf{Objective:} Show that flat classifiers fail to capture relationships
-	\item \textbf{Data:} Compare the Frozen Baseline (41,74\% Acc) vs. Unfrozen (~75,92\% Acc).
-	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.49\%) and Model Accuracy (75,92\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
+	\item \textbf{Data:} Compare the Frozen Baseline (41,72\% Acc) vs. Unfrozen (~75,92\% Acc).
+	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.49\%) and Model Accuracy (75.92\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
 	
 \end{itemize}
 
 \subsection{The Impact of Regularization \& Class Balancing}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Show the jump from ~78,70\% (Phase 3) to 86.86\% (Phase 5) just by adding Data Augmentation.
-	\item \textbf{Observation:} Note that Class Balancing (Phase 5) helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect). -- I think the observations should go to DIscussions
-	
-\end{itemize}
+	\item \textbf{Data:} Show the jump from ~75,92\% (Phase 3) to 85.65\% (Phase 4) just by adding Data Augmentation.
+	\item \textbf{Observation:} We gained nearly 10\% accuracy on the hardest task without changing the architecture or training longer. This demonstrates why Data Augmentation is standard practice in Deep Learning: it converts "memorization" into "generalization."
 
-\subsection{Architectural Ablation: The Necessity of "Type"}
+\begin{figure}[h!]
+    \centering
+    
+    % Left image
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]
+        {Multihead_two_heads_loss_curve.png}
+        \caption*{Without Data Augmentation}
+    \end{minipage}
+    \hfill
+    % Right image
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Multihead_two_heads_with_data_augmentation_loss_curve.png}
+        \caption*{With Data Augmentation}
+    \end{minipage}
+
+\end{figure}
+
+\end{itemize}
+\subsection{Data and Class Balancing on 2 Head (Model, Make}
 \begin{itemize}
-	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86,49\%) against Experiment 7 (3-Head Curriculum: 87.23\% - initial) and Experiment 9/10 (Final 3-Head: 89,07\%).
-	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
+	\item \textbf{Objective:} Make the model to perform better on more rare classes
+	\item \textbf{Data:} While the 2 head model with Data augmentation the Model Head got 85.65\% and the Make Head got 92,.1\% accuracy after class balancing the Model Head increased to 86.02\% the Make Head decreased to 91.77\%.
+	\item \textbf{Key Finding:} While Class Balancing helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect).
 		
 \end{itemize}
 
 \subsection{Optimization Dynamics: Interference vs. Curriculum}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the "Task Interference" problem in Multi-Task Learning.
-	\item \textbf{Data:} Contrast Experiment 6 (3-Head No Curriculum: 85.36\%) vs. Experiment 7 (3-Head With Curriculum: 86.15\%).
-	\item \textbf{Key Finding:} Without curriculum, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
+	\item \textbf{Data:} Contrast Experiment 6 (3-Head No Curriculum Learning: 85.36\%) vs. Experiment 7 (3-Head With Curriculum Learning: 86.15\%).
+	\item \textbf{Key Finding:} Without Curriculum Learning, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
 		
 \end{itemize}
 
-\subsection{SOTA Performance: Label Smoothing \& LR Scheduler}
+\subsection{Architectural Ablation: The Necessity of "Type"}
+\begin{itemize}
+	\item \textbf{Objective:} Solving the overfitting problem. 
+	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86.49\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 87,95\%).
+	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
+		
+\end{itemize}
+
+\subsection{SOTA Performance: Hierarchical Label Smoothing \& Learning Rate Scheduler}
 \begin{itemize}
 	\item \textbf{Objective:} Pushing the limit. 
-	\item \textbf{Data:} Present the final model (Experiment 10) achieving 89.07\% Top-1 Accuracy.
-	\item \textbf{Key Finding:} The Scheduler + HLS closed the consistency gap significantly.
+	\item \textbf{Data:} Present the final training model (Experiment 10) achieving 87.95\% Top-1 Accuracy. The Make-Model Consistency also improved from 96.60\% to 97.66\% and the Type-Model Consistency from 95.93\% to 96.58\%
+	\item \textbf{Key Finding:} Learning Rate Scheduler and Hierarchical Label Smoothing closed pushed the Consistencies to the limit.
 		
 \end{itemize}
 
-\subsection{The Impact of Inference Strategies}
-either talk about the results of tta here or above in SOTA, report the final number (88.57\%)
-
+\subsection{The Impact of Inference Strategies (Test Time Augmentation (TTA)):}
+\begin{itemize}
+	\item \textbf{Objective:} Trying to get the final accuracy improvement in testing phase. 
+	\item \textbf{Data:} After implementing 5 Test Time Augmentation the model reached 88,57\% accuracy which is the best could squeeze out.
+	\item \textbf{Key Finding:} This confirms that the model's errors were partly due to view-specific noise which ensembling effectively mitigated.
+		
+\end{itemize}
 
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
