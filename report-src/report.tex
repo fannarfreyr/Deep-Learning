@@ -175,23 +175,23 @@ Organize results by "Research Question" rather than date.
 \subsection{Establishing the "Hierarchy Gap" (Baselines)}
 \begin{itemize}
 	\item \textbf{Objective:} Show that flat classifiers fail to capture relationships
-	\item \textbf{Data:} Compare the Frozen Baseline (~42\% Acc) vs. Unfrozen (~76\% Acc).
-	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.5\%) and Model Accuracy (75.9\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
+	\item \textbf{Data:} Compare the Frozen Baseline (41,74\% Acc) vs. Unfrozen (~75,92\% Acc).
+	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.49\%) and Model Accuracy (75,92\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
 	
 \end{itemize}
 
 \subsection{The Impact of Regularization \& Class Balancing}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Show the jump from ~77\% (Phase 3) to 86.6\% (Phase 4) just by adding Data Augmentation.
-	\item \textbf{Observation:} Note that Class Balancing (Phase 5) helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect).
+	\item \textbf{Data:} Show the jump from ~78,70\% (Phase 3) to 86.86\% (Phase 5) just by adding Data Augmentation.
+	\item \textbf{Observation:} Note that Class Balancing (Phase 5) helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect). -- I think the observations should go to DIscussions
 	
 \end{itemize}
 
 \subsection{Architectural Ablation: The Necessity of "Type"}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86.49\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 89\%).
+	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86,49\%) against Experiment 7 (3-Head Curriculum: 87.23\% - initial) and Experiment 9/10 (Final 3-Head: 89,07\%).
 	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
 		
 \end{itemize}
@@ -217,7 +217,7 @@ either talk about the results of tta here or above in SOTA, report the final num
 
 
 \section{Discussion}
-This is the most critical section for grading. Interpret the patterns.
+In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
 
 \subsection{The "Frankenstein Car" Problem}
 \begin{itemize}
@@ -225,6 +225,10 @@ This is the most critical section for grading. Interpret the patterns.
 	\item In early experiments, consistency was low (~90\%). The model would predict "Toyota" (Make) and "Honda Civic" (Model).
 	\item By Experiment 9 (HLS), consistency reached 96.6\%, and finally 97.66\% with the scheduler. This proves the model learned the taxonomy, not just pixel patterns.
 \end{itemize}
+A question in hierarchical classification is whether a model learns the underlying taxonomy or whether it simply memorizes pixel-level patterns without understanding the semantic relationships between labels. Early versions of our model frequently produced predictions where the make, type, and model belonged to different, incompatible vehicles. For example, the make head might output “Toyota”, while the model head simultaneously predicted “Honda Civic”. Such inconsistencies mean that each head is treated as an isolated classification task. \newline
+In the initial experiments, hierarchical consistency remained relatively low, hovering around 90\%, meaning that in roughly one out of ten images, the predicted model did not belong to the predicted make. By introducing Hierarchical Label Smoothing (HLS) the consistency improved substantially. By Experiment 9, the model reached 96.6\% consistency which demonstrates a marked improvement in aligning predictions across heads. The final experiment, which integrated both HLS and a cosine learning rate scheduler, further increased consistency to 97.66\%. \newline
+This progression shows that the model was no longer merely fitting to visual textures or superficial cues but had begun to internalize the hierarchical taxonomy of make, type, and model. The reduction of incompatible predictions illustrates that the network learned meaningful relationships between car brands and their associated models which resulted in coherent outputs.
+
 
 
 \subsection{The Role of "Type" as Scaffolding}
@@ -232,6 +236,9 @@ This is the most critical section for grading. Interpret the patterns.
 	\item Analyze why 3\_head\_curriculum eventually beat 2\_head\_curriculum.
 	\item The "Type" head (Sedan, SUV, Coupe) provides Intermediate Scaffolding. It is easier to learn than "Model" but provides more structural information than "Make." It bridges the semantic gap.
 \end{itemize}
+A key insight from our experiments is the importance of the “Type” head (e.g., Sedan, SUV, Coupe) as an intermediate level of supervision. When comparing the two-head curriculum (Make + Model) to the three-head setup (Make + Type + Model), the latter consistently achieved higher accuracy and stability. This is because Type acts as a bridge because it is easier to learn than the fine-grained model classification but more informative than the broad make category. \newline
+By giving the model an additional intermediate task, the network receives structured guidance that reduces the complexity of learning the full 196-class model label. The Type head therefore provides scaffolding that helps the model organize visual information hierarchically. This effect explains why the three-head curriculum outperformed the two-head version in both accuracy and consistency.
+
 
 
 \subsection{The "Free Lunch" of Training Schedules}
@@ -239,9 +246,16 @@ This is the most critical section for grading. Interpret the patterns.
 	\item Discuss the final experiment (LR Scheduler).
 	\item ou gained ~1.5\% accuracy (87.9\% $\to$ 89.07\%) just by changing the learning rate schedule. This indicates the architecture was sound, but the optimizer needed "fine-grained" control to settle into the sharp minima of the loss landscape.
 \end{itemize}
+Another finding was how strongly the learning-rate schedule influenced performance. After the architecture and curriculum strategy were already working well, switching to a learning-rate scheduler brought an additional improvement of roughly 1.5 percentage points (from ~87.9\% to 89.07\% model accuracy) without modifying the model or adding new data. \newline
+This highlights that the model was already capable of achieving higher performance, but the optimizer was not navigating the loss landscape efficiently. The scheduler allowed the network to make larger exploratory steps early on and gradually settle into more stable minima toward the end of training. In that sense, learning-rate scheduling was a simple change that is responsible for additional accuracy while keeping training cost and model complexity unchanged.
+
 
 \subsection{Robustness via Inference Ensembling}
 Explain how TTA serves as a proxy for measuring model robustness, argue that this proves our model is robust and "production-ready"
+
+Test-time augmentation (TTA) provided an additional perspective on the robustness of the trained model. By averaging predictions over several augmented versions of each test image, such as horizontal flips or cropped resizes, the model effectively performs a lightweight ensembling step during inference. This reduces the influence of single-view biases, such as lighting, framing, or minor pose variations. \newline
+In our experiments, the TTA results demonstrated that the model maintained highly stable predictions under these perturbations which confirms that it had learned generalizable visual features rather than overfitting to specific image conditions. Although the absolute performance gain from TTA was modest, the consistency across augmented views indicates that the model is resilient and can be considered “production-ready” for real-world scenarios.
+
 
 \section{Conclusion}
 Conclude that while ResNet50 is powerful, structuring the learning process (Curriculum) and enforcing taxonomy (Multi-head + HLS) creates a model that is not only more accurate but logically robust.
