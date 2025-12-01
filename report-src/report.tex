@@ -1,4 +1,4 @@
-\documentclass{article}
+  \documentclass{article}
 
 
 
@@ -17,6 +17,7 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{doi}
+\usepackage{float}
 
 
 
@@ -118,23 +119,38 @@ Our approach follows a similar foundation in that we also rely on transfer learn
 \begin{itemize}
 	\item The dataset contains 16185 images of 196 classes of cars. The dataset is split into  8144 training images and 8041 test images. Each class has been split around a 50-50 split.
 	\item Hierarchical Label Definiton:
-        \begin{table}[h!]
-        \begin{tabular}{cccc}
-        \multicolumn{1}{l}{\textbf{Hierarchy Level}} & \textbf{Description} &       \textbf{Example} & \textbf{Classification Difficulty} \\
-        Head 1: Make &
-          \begin{tabular}[c]{@{}c@{}}The manufacturer or brand of the vehicle. \\       This is the coarse-grained class.\end{tabular} &
-          BMW &
-          \begin{tabular}[c]{@{}c@{}}Easy \\ (Highly distinct       features/logos)\end{tabular} \\
-        Head 2: Type &
-          \begin{tabular}[c]{@{}c@{}}The general body style of the vehicle, \\      inferred from the model name.\end{tabular} &
-          Sedan &
-          \begin{tabular}[c]{@{}c@{}}Medium \\ (Defined by      shape/proportions)\end{tabular} \\
-        Head 3: Model &
-          \begin{tabular}[c]{@{}c@{}}The specific model and year of \\ the vehicle       (the original 196 classes).\end{tabular} &
-          3-Series Sedan 2012 &
-          \begin{tabular}[c]{@{}c@{}}Hard\\  (Subtle visual differences)\end{tabular}
-        \end{tabular}
-        \end{table}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Hierarchy Level} &
+\textbf{Description} &
+\textbf{Example} &
+\textbf{Classification Difficulty} \\
+\hline
+
+Head 1: Make &
+\begin{tabular}[c]{@{}c@{}}The manufacturer or brand of the vehicle.\\ This is the coarse-grained class.\end{tabular} &
+BMW &
+\begin{tabular}[c]{@{}c@{}}Easy \\ (Highly distinct features/logos)\end{tabular} \\
+\hline
+
+Head 2: Type &
+\begin{tabular}[c]{@{}c@{}}The general body style of the vehicle,\\ inferred from the model name.\end{tabular} &
+Sedan &
+\begin{tabular}[c]{@{}c@{}}Medium \\ (Defined by shape/proportions)\end{tabular} \\
+\hline
+
+Head 3: Model &
+\begin{tabular}[c]{@{}c@{}}The specific model and year of\\ the vehicle (the original 196 classes).\end{tabular} &
+3-Series Sedan 2012 &
+\begin{tabular}[c]{@{}c@{}}Hard \\ (Subtle visual differences)\end{tabular} \\
+\hline
+\end{tabular}
+\vspace{6pt}
+\caption{Table 1: Hierarchical Label Definition}
+\end{table}
+
 \end{itemize}
 
 \subsection{Model Architecture}
@@ -159,7 +175,7 @@ Our approach follows a similar foundation in that we also rely on transfer learn
     
         \item Normalization: Input images were normalized using the mean and standard deviation of the ImageNet dataset, matching the pre-training conditions of the ResNet backbone.
 	\item \textbf{Curriculum Learning:} We addressed curriculum learning with the 3 model head to make the model first learn easy (Make) and medium (Type) tasks before focusing on the hard (Model) task. To achieve it, we increased the number of epochs to 20 and in the 5 epochs, we froze the Model head, so it only trains on the Make and Type heads.
-	\item \textbf{Hierarchical Label Smoothing (HLS):} While we were trying to squeeze out the last percentages of accuracy in training, we used HLS, to make the model penalize more the easy misses then the hard misses. Which means that for example mistaking a BMW M3 for a BMW 328i (Sibling error) shouln't give the same loss as mistaking a a BMW M3 for a Ford F-150 (Distant error). The technique we used for it is instead of a hard [0, 1, 0, 0] target, use soft targets that give partial credit to siblings. While the hard target gives 100\% weight loss for the correct car, while the soft targets give 90\% to the correct car and 10\% distributed among other cars in the same Make 
+	\item \textbf{Hierarchical Label Smoothing (HLS):} While we were trying to squeeze out the last percentages of accuracy in training, we used HLS, to make the model penalize more the easy misses then the hard misses. Which means that for example mistaking a BMW M3 for a BMW 328i (Sibling error) shouln't give the same loss as mistaking a a BMW M3 for a Ford F-150 (Distant error). The technique we used for it is instead of a hard [0, 1, 0, 0] target, use soft targets that give partial credit to siblings. While the hard target gives 100\% loss for the correct car, while the soft targets give 90\% to the correct car and 10\% distributed among other cars in the same Make 
 \end{itemize}
 
 \subsection{Inference Strategies:}
@@ -207,10 +223,10 @@ Organize results by "Research Question" rather than date.
 \end{figure}
 
 \end{itemize}
-\subsection{Data and Class Balancing on 2 Head (Model, Make}
+\subsection{Data Augmentation and Class Balancing on 2 Head (Model, Make}
 \begin{itemize}
 	\item \textbf{Objective:} Make the model to perform better on more rare classes
-	\item \textbf{Data:} While the 2 head model with Data augmentation the Model Head got 85.65\% and the Make Head got 92,.1\% accuracy after class balancing the Model Head increased to 86.02\% the Make Head decreased to 91.77\%.
+	\item \textbf{Data:} While the 2 head model with Data augmentation the Model Head got 85.65\% and the Make Head got 92,71\% accuracy after class balancing the Model Head increased to 86.02\% the Make Head decreased to 91.77\%.
 	\item \textbf{Key Finding:} While Class Balancing helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect).
 		
 \end{itemize}
@@ -218,7 +234,7 @@ Organize results by "Research Question" rather than date.
 \subsection{Optimization Dynamics: Interference vs. Curriculum}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the "Task Interference" problem in Multi-Task Learning.
-	\item \textbf{Data:} Contrast Experiment 6 (3-Head No Curriculum Learning: 85.36\%) vs. Experiment 7 (3-Head With Curriculum Learning: 86.15\%).
+	\item \textbf{Data:} Contrast Experiment 6 (3-Head without Curriculum Learning: 85.36\%) vs. Experiment 7 (3-Head with Curriculum Learning: 86.15\%).
 	\item \textbf{Key Finding:} Without Curriculum Learning, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
 		
 \end{itemize}
@@ -226,7 +242,7 @@ Organize results by "Research Question" rather than date.
 \subsection{Architectural Ablation: The Necessity of "Type"}
 \begin{itemize}
 	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 86.49\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 87,95\%).
+	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 85.51\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 87,95\%).
 	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
 		
 \end{itemize}
@@ -242,10 +258,77 @@ Organize results by "Research Question" rather than date.
 \subsection{The Impact of Inference Strategies (Test Time Augmentation (TTA)):}
 \begin{itemize}
 	\item \textbf{Objective:} Trying to get the final accuracy improvement in testing phase. 
-	\item \textbf{Data:} After implementing 5 Test Time Augmentation the model reached 88,57\% accuracy which is the best could squeeze out.
+	\item \textbf{Data:} After implementing 5 Test Time Augmentation the model reached 88,57\% accuracy which is the best we could squeeze out.
 	\item \textbf{Key Finding:} This confirms that the model's errors were partly due to view-specific noise which ensembling effectively mitigated.
 		
 \end{itemize}
+
+\begin{table}[h!]
+\centering
+
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Model} & \textbf{Top - 1} & \textbf{Top - 5} \\
+\hline
+Frozen Baseline & 58,28\% & 32,11\% \\
+\hline
+Unfrozen Baseline & 24,08\% & 8,72\% \\
+\hline
+Regularization and Class Balancing on 1 Head & 14,35\% & 2,03\% \\
+\hline
+Data Augmentation and Class Balancing on 2 Head & 13,98\% & 2,03\% \\
+\hline
+3 Head without Curriculum Learning & 14,64\% & 2,09\% \\
+\hline
+2 Head with Curriculum Learning & 14,49\% & 3,01\% \\
+\hline
+3 Head with Curriculum Learning & 13,85\% & 2,21\% \\
+\hline
+3 Head Hierarchical Label Smoothing and Learning Rate Scheduler & 12,05\% & 2,09\% \\
+\hline
+3 Head Test Time Augmentation & 11,43\% &  \\
+\hline
+\end{tabular}
+\vspace{6pt}
+\caption{Table 2: Top-1 and Top-5 error rates through experiments}
+
+\end{table}
+
+\subsection{Compare our results to other benchmarks:}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{5cm}|p{4cm}|c|}
+\hline
+\textbf{Paper} & \textbf{Model Architecture} & \textbf{Top - 1 Accuracy} \\
+\hline
+
+A Systematic Evaluation of Recent Deep Learning Architectures for Fine-Grained Vehicle Classification &
+ResNet-50 (FineTuned on ImageNet) &
+92,0\% \\
+\hline
+
+& ResNet-152 (FineTuned on ImageNet) & 92,6\% \\
+\hline
+
+& DenseNet-161 (FineTuned on ImageNet) & 94,6\% \\
+\hline
+
+Fine-Grained Image Classification for Vehicle Makes \& Models using CNNs &
+VGG-16 backbone (pretrained on ImageNet) &
+84,0\% \\
+\hline
+
+Our Model & ResNet-50 & 88,57\% \\
+\hline
+\end{tabular}
+
+\vspace{6pt}
+\caption{Table 3: Compare accuracy to related benchmarks}
+\end{table}
+
+
+
 
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
