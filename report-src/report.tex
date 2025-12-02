@@ -158,19 +158,13 @@ This approach exploits the model's learned invariance to geometric transformatio
 Organize results by "Research Question" rather than date.
 
 \subsection{Establishing the "Hierarchy Gap" (Baselines)}
-\begin{itemize}
-	\item \textbf{Objective:} Show that flat classifiers fail to capture relationships
-	\item \textbf{Data:} Compare the Frozen Baseline (41,72\% Acc) vs. Unfrozen (~75,92\% Acc).
-	\item \textbf{Key Finding:} Even with decent accuracy, the "Gap" between Make Accuracy (85.49\%) and Model Accuracy (75.92\%) was nearly 10\%, indicating the model was guessing Models without knowing the Brand.
-	
-\end{itemize}
+
+	The objective of this section is to show that flat classifiers fail to capture relationships. This was done by comparing the performance on the data using the Frozen Baseline (achieving 41.72\% Acc) against the Unfrozen model (achieving approximately 75.92\% Acc). The key finding demonstrated that even with a decent overall accuracy, the "Gap" between the Make Accuracy (85.49\%) and the Model Accuracy (75.92\%) was nearly 10\%. This indicates that the model was essentially guessing the Models without reliably knowing the underlying Brand.
+
 
 \subsection{The Impact of Regularization \& Class Balancing}
-\begin{itemize}
-	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Show the jump from ~75,92\% (Phase 3) to 85.65\% (Phase 4) just by adding Data Augmentation.
-	\item \textbf{Observation:} We gained nearly 10\% accuracy on the hardest task without changing the architecture or training longer. This demonstrates why Data Augmentation is standard practice in Deep Learning: it converts "memorization" into "generalization."
 
+	The objective here was to solve the overfitting problem. This was demonstrated using the data to show a significant jump from approximately 75.92\% accuracy (observed in Phase 3) to 85.65\% accuracy (achieved in Phase 4) simply by adding Data Augmentation. The key observation is that we gained nearly 10\% accuracy on the hardest classification task without needing to change the model architecture or train the model for a longer duration. This finding clearly demonstrates why Data Augmentation is a standard practice in Deep Learning: it effectively converts model "memorization" into robust "generalization."
 \begin{figure}[h!]
     \centering
     
@@ -191,46 +185,30 @@ Organize results by "Research Question" rather than date.
 
 \end{figure}
 
-\end{itemize}
+
 \subsection{Data Augmentation and Class Balancing on 2 Head (Model, Make}
-\begin{itemize}
-	\item \textbf{Objective:} Make the model to perform better on more rare classes
-	\item \textbf{Data:} While the 2 head model with Data augmentation the Model Head got 85.65\% and the Make Head got 92,71\% accuracy after class balancing the Model Head increased to 86.02\% the Make Head decreased to 91.77\%.
-	\item \textbf{Key Finding:} While Class Balancing helped rare classes but slightly hurt overall consistency (The "Robin Hood" effect).
-		
-\end{itemize}
+
+	The primary goal of this stage was to enhance the model's performance specifically on the more rare classes. An analysis of the data revealed the impact of implementing class balancing: initially, the two-head model with Data Augmentation achieved 85.65\% accuracy on the Model Head and 92.71\% accuracy on the Make Head. After applying class balancing, the Model Head saw a modest increase to 86.02\%, while the Make Head accuracy slightly decreased to 91.77\%. The central observation is that while Class Balancing provided a distinct benefit to the infrequently occurring classes, it came at the cost of a minor reduction in overall consistency—an effect that can be likened to a "Robin Hood" dynamic, where resources are shifted from common to rare groups.
+
 
 \subsection{Optimization Dynamics: Interference vs. Curriculum}
-\begin{itemize}
+
 	\item \textbf{Objective:} Solving the "Task Interference" problem in Multi-Task Learning.
 	\item \textbf{Data:} Contrast Experiment 6 (3-Head without Curriculum Learning: 85.36\%) vs. Experiment 7 (3-Head with Curriculum Learning: 86.15\%).
 	\item \textbf{Key Finding:} Without Curriculum Learning, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
-		
-\end{itemize}
+
 
 \subsection{Architectural Ablation: The Necessity of "Type"}
-\begin{itemize}
-	\item \textbf{Objective:} Solving the overfitting problem. 
-	\item \textbf{Data:} Compare Experiment 8 (2-Head Curriculum: 85.51\%) against Experiment 7 (3-Head Curriculum: 86.15\% - initial) and Experiment 9/10 (Final 3-Head: 87,95\%).
-	\item \textbf{Key Finding:} While 3-Head initially struggled due to interference, once optimized (see next section), it outperformed the 2-Head approach, proving that the "Type" layer acts as a necessary semantic bridge.
+	The objective was to demonstrate the necessity of the architectural layers. Data comparing Experiment 8 (2-Head Curriculum: 85.51\%) against the optimized Experiment 9/10 (Final 3-Head: 87.95\%) showed a clear advantage. The key finding is that while the 3-Head approach initially struggled, once optimized, it consistently surpassed the 2-Head model. This confirms that the "Type" layer is required, serving as a necessary semantic bridge.
 		
-\end{itemize}
 
-\subsection{SOTA Performance: Hierarchical Label Smoothing (HLS) \& Learning Rate Scheduler (LR Scheduler)}
-\begin{itemize}
-	\item \textbf{Objective:} Pushing the limit. 
-	\item \textbf{Data:} Present the final training model (Experiment 10) achieving 87.95\% Top-1 Accuracy. The Make-Model Consistency also improved from 96.60\% to 97.66\% and the Type-Model Consistency from 95.93\% to 96.58\%
-	\item \textbf{Key Finding:} Learning Rate Scheduler and Hierarchical Label Smoothing closed pushed the Consistencies to the limit.
-		
-\end{itemize}
+\subsection{SOTA Performance: Hierarchical Label Smoothing (HLS) \& Learning Rate Scheduler (LR Scheduler):}
+	The ultimate goal was to push the model's predictive limits, leveraging the full benefit of the hierarchical structure. The data from the final optimized training run, Experiment 10, demonstrated significant results: it achieved a peak Top-1 Accuracy of 87.95\%. Crucially, the model's structural integrity improved further, with Make-Model Consistency rising from 96.60\% to 97.66\%, and Type-Model Consistency also increasing from 95.93\% to 96.58\%. This key finding shows that the combination of the Learning Rate Scheduler and Hierarchical Label Smoothing (HLS) was instrumental in driving the consistency metrics to their practical maximum.
+
 
 \subsection{The Impact of Inference Strategies (Test Time Augmentation (TTA)):}
-\begin{itemize}
-	\item \textbf{Objective:} Trying to get the final accuracy improvement in testing phase. 
-	\item \textbf{Data:} After implementing 5 Test Time Augmentation the model reached 88,57\% accuracy which is the best we could squeeze out.
-	\item \textbf{Key Finding:} This confirms that the model's errors were partly due to view-specific noise which ensembling effectively mitigated.
-		
-\end{itemize}
+
+	The objective for this final stage was to achieve the ultimate accuracy improvement during the testing phase. Using the data, we show that after implementing 5-fold Test Time Augmentation (TTA), the model's accuracy reached 88.57\%, representing the highest performance we could extract from the system. This key finding confirms that a portion of the model's remaining prediction errors were attributable to view-specific noise, which the ensembling nature of TTA effectively mitigated.
 
 \begin{table*}[t]
 \centering
