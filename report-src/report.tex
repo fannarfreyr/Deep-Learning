@@ -296,8 +296,45 @@ Our Model & ResNet-50 & 88,57\% \\
 \caption{Compare accuracy to related benchmarks}
 \end{table}
 
+\subsection{Qualitative evaluation}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Images/label_prediction_mis_all_wrong.png}
+    \caption{Five Stanford-Cars test images and the five labels considered most probable by our model (3 head, HLS, LRS). All 3 head predictions are wrong. The correct label and the five labels considered most probable are written under each image.}
+    \label{fig:my_image}
+\end{figure}
+Across these five fully misclassified samples in Figure 3, a consistent pattern emerges: the model often shows high internal confidence despite being wrong, especially for the Make and Type heads. One example is the Aston Martin convertible, where the model predicts Ferrari as the make with 98.86\% confidence, while Aston Martin does not even appear in the top-5 list. The same happens for the Type head, where Coupe is selected with 92.64\% confidence, although the car is a convertible.\newline
+In contrast, the Rolls-Royce example shows a different behavior: the model predicts Maybach as the top make, but with only 27.99\% confidence, and the true class Rolls-Royce still appears in the top-5 with nearly 10\% probability. Among these misclassified cases, this is the closest the model gets to identifying the correct make.
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Images/label_prediction_mis_only_make_correct.png}
+    \caption{Five Stanford-Cars test images and the five labels considered most probable by our model (3 head, HLS, LRS). Only the make head's prediction is correct. The correct label and the top five labels considered most probable are written under each image.}
+    \label{fig:my_image}
+\end{figure}
+Across the examples in Figure 4, where only the Make was predicted correctly, a consistent pattern emerges: when the model correctly identifies the Make, the predictions for Type and Model tend to be noticeably better than in cases where the Make is already mistaken. 
 
+The Bentley example illustrates this well. Once the model correctly recognizes the Make as Bentley with near certainty (99.99\%), the Type prediction is already better than in the fully misclassified examples and “Sedan” appears with 14.45\%. More importantly, the Model head assigns substantial probability to the correct Model family: the correct class “Bentley Continental Flying Spur Sedan 2007” receives 33.59\%, and other close variants of the Continental series dominate the rest of the top-5.
+
+The Audi TTS example, on the other hand, reveals that correct Make classification does not always guarantee strong downstream predictions. While “Audi” is detected with high confidence (99.29\%) and the Type prediction “Coupe” achieves a solid 36.56\%, the Model head struggles because the true Model “Audi TTS Coupe 2012” appears in the top-5 but with only 4.17\% confidence. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Images/heatmap_mis_all_wrong.png}
+    \caption{Five Stanford-Cars test images and the heatmaps showing on which image part our model (3 head, HLS, LRS) focused on when producing labels for each head. All 3 head predictions are wrong. The correct label the heatmaps for each head are displayed under each image.}
+    \label{fig:my_image}
+\end{figure}
+In the heatmaps of the fully misclassified samples shown in Figure 5, a consistent pattern becomes visible: whenever the image is captured from the side or slightly from behind (Samples 1–3), all three heads tend to focus on the central region of the vehicle. The Suzuki example shows this clearly. The image is taken entirely from the rear, and the Make head concentrates on the middle of the car. However, the Type head fixates on the large “Rockstar Energy” sticker on the right side of the trunk, which is completely unrelated to the vehicle’s actual structural features. The Model head performs even worse, directing its attention away from the car entirely and focusing mainly on the left-hand background.\newline
+The Aston Martin sample provides a different perspective, as the photo is taken from above and toward the front. The Make and Type heads focus primarily on the bonnet, which is a reasonable region for high-level recognition. However, the Model head barely attends to the vehicle, only touching the right headlight and parts of the road next to the car. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Images/heatmap_mis_only_make_correct.png}
+    \caption{Five Stanford-Cars test images and the heatmaps showing on which image part our model (3 head, HLS, LRS) focused on when producing labels for each head. Only the make head's prediction is correct. The correct label the heatmaps for each head are displayed under each image.}
+    \label{fig:my_image}
+\end{figure}
+In Figure 6, the heatmaps for the samples where only the Make head predicted the correct class are shown. For the first four samples, each photographed from the front or slightly from the side, all three heads concentrate their attention on the central area of the car’s front section.\newline
+The only notable deviation appears in the Audi TTS example, where the image is captured from the rear. The Make and Type heads still fixate on the central region of the rear end, which is consistent with their behavior in similar viewpoints. However, the Model head diverges completely and focuses primarily to the left rear light and even to the skyscrapers in the background.
 
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
