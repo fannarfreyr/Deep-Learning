@@ -85,9 +85,9 @@ Our approach follows a similar foundation in that we also rely on transfer learn
 
 \section{Methods}
 \subsection{Dataset and Pre-Processing??}
-\begin{itemize}
-	\item The dataset contains 16185 images of 196 classes of cars. The dataset is split into  8144 training images and 8041 test images. Each class has been split around a 50-50 split.
-	\item Hierarchical Label Definiton:
+
+	We used the Stanford Cars Dataset, which comprises a total of 16,185 images distributed across 196 distinct classes of automobiles. The dataset was divided almost evenly for training and testing: 8,144 images were designated for the training set, and the remaining 8,041 images formed the test set. Importantly, the split for each of the 196 car classes was maintained at approximately a 50-50 ratio between the training and testing partitions.
+	\newline Hierarchical Label Definiton: table comes here
 \begin{table}[h!]
 \centering
 \begin{tabular}{|l|c|c|c|}
@@ -120,15 +120,13 @@ Head 3: Model &
 \caption{Hierarchical Label Definition}
 \end{table}
 
-\end{itemize}
 
 \subsection{Model Architecture}
-\begin{itemize}
-	\item \textbf{Backbone:} ResNet-50 (pretrained on ImageNet) without any modifications.
-	\item \textbf{Multi-Task Heads:} The Data Architecture is based on the Shared-Bottom Multi-Task Learning paradigm. This approach uses a single Convolutional Neural Network (CNN) backbone to extract a universal, high-dimensional feature representation from the input image, which is then fed into multiple, distinct "heads," each responsible for a single classification task (e.g., Make, Model, or Type).
-	\item \textbf{Multi-Head Architecture:} The architecture utilizes a multi-head design, based on the Shared-Bottom Multi-Task Learning paradigm, where the feature vector, $F_{shared}$, extracted by the backbone, is split and fed simultaneously into three independent, fully-connected (Dense) classification heads: Make, Type, and Model. This split allows the backbone to learn general, low-level visual characteristics shared by all tasks, while each head refines the features necessary for its specific, hierarchical classification level. The entire network is trained end-to-end by optimizing a single Combined Training Objective, $L_{Total}$, which is the weighted sum of the Categorical Cross-Entropy losses ($L_{CCE}$) from each head:
+
+    The core of the model is a ResNet-50 network, which serves as the backbone and was initialized using weights pre-trained on ImageNet without any subsequent architectural modifications. The overall Data Architecture is rooted in the Shared-Bottom Multi-Task Learning paradigm. This approach involves using the single Convolutional Neural Network (CNN) backbone to extract a universal, high-dimensional feature representation from the input image. This shared feature is then simultaneously fed into multiple, distinct "heads," where each head is responsible for its own classification task (e.g., Make, Model, or Type).
+    \newline Specifically, the Multi-Head Architecture utilizes this paradigm by taking the shared feature vector, $F_{shared}$, extracted by the backbone, and splitting it to feed three independent, fully-connected (Dense) classification heads: Make, Type, and Model. This design enables the backbone to learn general, low-level visual characteristics common to all tasks, while each specific head refines the features needed for its respective hierarchical classification level. The entire network is trained end-to-end by optimizing a single Combined Training Objective, $L_{Total}$. This total loss function is defined as the weighted sum of the Categorical Cross-Entropy (CCE) losses ($L_{CCE}$) calculated from each head's prediction:
     $$L_{Total} = w_{Make} \cdot L_{CCE}(y_{Make}, \hat{y}_{Make}) + w_{Type} \cdot L_{CCE}(y_{Type}, \hat{y}_{Type}) + w_{Model} \cdot L_{CCE}(y_{Model}, \hat{y}_{Model})$$
-\end{itemize}
+
 
 \subsection{Training Strategies}
 \begin{itemize}
