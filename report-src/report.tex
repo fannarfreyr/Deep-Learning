@@ -193,11 +193,8 @@ Organize results by "Research Question" rather than date.
 
 
 \subsection{Optimization Dynamics: Interference vs. Curriculum}
-\begin{itemize}
-	\item \textbf{Objective:} Solving the "Task Interference" problem in Multi-Task Learning.
-	\item \textbf{Data:} Contrast Experiment 6 (3-Head without Curriculum Learning: 85.36\%) vs. Experiment 7 (3-Head with Curriculum Learning: 86.15\%).
-	\item \textbf{Key Finding:} Without Curriculum Learning, gradients conflicted. Freezing the hard head allowed the backbone to learn stable features first.
-\end{itemize}
+
+The objective was to solve the "Task Interference" problem inherent in the multi-task learning setup. This was demonstrated using data that contrasts Experiment 6 (the 3-Head model trained without Curriculum Learning, achieving 85.36\% accuracy) against Experiment 7 (the 3-Head model trained with Curriculum Learning, which yielded 86.15\% accuracy). The key finding is that, without the phased approach of Curriculum Learning, the gradients from the competing tasks conflicted within the shared backbone.	
 
 \subsection{Architectural Ablation: The Necessity of "Type"}
 	The objective was to demonstrate the necessity of the architectural layers. Data comparing Experiment 8 (2-Head Curriculum: 85.51\%) against the optimized Experiment 9/10 (Final 3-Head: 87.95\%) showed a clear advantage. The key finding is that while the 3-Head approach initially struggled, once optimized, it consistently surpassed the 2-Head model. This confirms that the "Type" layer is required, serving as a necessary semantic bridge.
