@@ -129,6 +129,29 @@ Head 3: Model &
 
 
 \subsection{Training Strategies}
+\subsubsection*{Baseline}
+ First we set up a baseline for training which contained batch size = 32 with 15 epochs and a 0.0001 learning rate, where the ImageNet layers were frozen and only the fully connected layer was unfrozen. Then we unfroze the rest of the model parameters, to help the model recognize the shapes of the elements of the car models. Then we added the Make classification head that only predicts the make of the car (fx. BMW) while the first head was predicting the full label to make sure that the model is learning the hierarchy. Then later we added a third, Type classification head that only predicts the type of the car (fx. Sedan)
+	
+\subsubsection*{Data Augmentation, Normalization}
+
+We added 4 different types of data augmentation and normalization
+        Random Resized: and Cropped Images were first resized to a larger   dimension (256x256) and then a $224 \times 224$ area was randomly     cropped. This combination forces the model to learn features that are   robust to variations in position, scale, and perspective (i.e., the car   is not always perfectly centered).
+    
+        Random Horizontal Flip: Flips the image along the vertical axis with a  50% probability, teaching the model to recognize features regardless of  their left-right orientation.
+    
+        Random Rotation: Images were randomly rotated up to $\pm 15$ degrees.   This provides rotational invariance, which is particularly useful for     handling slight tilts or oblique angles in real-world images.
+    
+        Color Jitter: Randomly alters the brightness, contrast, and saturation of   the images to make the model invariant to lighting conditions.
+    
+        Normalization: Input images were normalized using the mean and standard deviation of the ImageNet dataset, matching the pre-training conditions of the ResNet backbone.
+ 
+\subsubsection*{Curriculum Learning}
+ We addressed curriculum learning with the 3 model head to make the model first learn easy (Make) and medium (Type) tasks before focusing on the hard (Model) task. To achieve it, we increased the number of epochs to 20 and in the 5 epochs, we froze the Model head, so it only trains on the Make and Type heads.
+	
+
+\subsubsection*{Hierarchical Label Smoothing}
+	While we were trying to squeeze out the last percentages of accuracy in training, we used HLS, to make the model penalize more the easy misses then the hard misses. Which means that for example mistaking a BMW M3 for a BMW 328i (Sibling error) shouln't give the same loss as mistaking a a BMW M3 for a Ford F-150 (Distant error). The technique we used for it is instead of a hard [0, 1, 0, 0] target, use soft targets that give partial credit to siblings. While the hard target gives 100\% loss for the correct car, while the soft targets give 90\% to the correct car and 10\% distributed among other cars in the same Make 
+
 \begin{itemize}
 	\item \textbf{Baseline:} First we set up a baseline for training which contained batch size = 32 with 15 epochs and a 0.0001 learning rate, where the ImageNet layers were frozen and only the fully connected layer was unfrozen. Then we unfroze the rest of the model parameters, to help the model recognize the shapes of the elements of the car models. Then we added the Make classification head that only predicts the make of the car (fx. BMW) while the first head was predicting the full label to make sure that the model is learning the hierarchy. Then later we added a third, Type classification head that only predicts the type of the car (fx. Sedan)
 	\item \textbf{Data Augmentation, Normalization:} We added 4 different types of data augmentation and normalization
