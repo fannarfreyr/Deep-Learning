@@ -123,7 +123,14 @@ Head 3: Model &
 
 \subsection{Model Architecture}
 
-    The core of the model is a ResNet-50 network, which serves as the backbone and was initialized using weights pre-trained on ImageNet without any subsequent architectural modifications. The overall Data Architecture is rooted in the Shared-Bottom Multi-Task Learning paradigm. This approach involves using the single Convolutional Neural Network (CNN) backbone to extract a universal, high-dimensional feature representation from the input image. This shared feature is then simultaneously fed into multiple, distinct "heads," where each head is responsible for its own classification task (e.g., Make, Model, or Type).
+    The core of the model is a ResNet-50 network, which serves as the backbone and was initialized using weights pre-trained on ImageNet without any subsequent architectural modifications. The overall Data Architecture is rooted in the Shared-Bottom Multi-Task Learning paradigm. This approach involves using the single Convolutional Neural Network (CNN) backbone to extract a universal, high-dimensional feature representation from the input image. This shared feature is then simultaneously fed into multiple, distinct "heads", where each head is responsible for its own classification task (e.g., Make, Model, or Type).
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Images/resnet-50-1.jpg}
+    \caption{ResNet-50 architecture with 3 output heads}
+    \label{fig:my_image}
+\end{figure}
+    
     \newline Specifically, the Multi-Head Architecture utilizes this paradigm by taking the shared feature vector, $F_{shared}$, extracted by the backbone, and splitting it to feed three independent, fully-connected (Dense) classification heads: Make, Type, and Model. This design enables the backbone to learn general, low-level visual characteristics common to all tasks, while each specific head refines the features needed for its respective hierarchical classification level. The entire network is trained end-to-end by optimizing a single Combined Training Objective, $L_{Total}$. This total loss function is defined as the weighted sum of the Categorical Cross-Entropy (CCE) losses ($L_{CCE}$) calculated from each head's prediction:
     $$L_{Total} = w_{Make} \cdot L_{CCE}(y_{Make}, \hat{y}_{Make}) + w_{Type} \cdot L_{CCE}(y_{Type}, \hat{y}_{Type}) + w_{Model} \cdot L_{CCE}(y_{Model}, \hat{y}_{Model})$$
 
