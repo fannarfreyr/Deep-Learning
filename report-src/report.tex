@@ -128,6 +128,8 @@ This approach exploits the model’s learned feature invariance to stabilize and
 
 \subsection{Establishing the "Hierarchy Gap" (Baselines)}
 
+	Comparing the Frozen Baseline (41.72\%) against the fine-tuned Unfrozen model (75.92\%) reveals a critical limitation in flat classification. Despite the significant accuracy gains from fine-tuning, a 'Hierarchy Gap' of nearly 10 percentage points persisted between Make Accuracy (85.49\%) and Model Accuracy (75.92\%). This discrepancy indicates that the model frequently predicts specific trims based on local visual cues without correctly identifying the parent manufacturer, thereby failing to capture the underlying taxonomic structure
+
 	The objective of this section is to show that flat classifiers fail to capture relationships. This was done by comparing the performance on the data using the Frozen Baseline (achieving 41.72\% Acc) against the Unfrozen model (achieving approximately 75.92\% Acc). The key finding demonstrated that even with a decent overall accuracy, the "Gap" between the Make Accuracy (85.49\%) and the Model Accuracy (75.92\%) was nearly 10\%. This indicates that the model was essentially guessing the Models without reliably knowing the underlying Brand.
 
 
@@ -187,6 +189,21 @@ The objective was to solve the "Task Interference" problem inherent in the multi
 \end{table*}
 
 \subsection{Compare our results to other benchmarks:}
+
+\begin{table}[h]
+\centering
+\caption{Comparison with state-of-the-art benchmarks.}
+\begin{tabular}{llc}
+\toprule
+\textbf{Paper} & \textbf{Architecture} & \textbf{Acc (\%)} \\
+\midrule
+Valev et al. \cite{valev2018systematicevaluationrecentdeep} & ResNet-50 (Flat) & 92.0 \\
+Sanchez et al. \cite{inbook} & VGG-16 & 84.0 \\
+\textbf{Ours} & \textbf{ResNet-50 (Hierarchical)} & \textbf{88.6} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 \begin{table}[H]
 \centering
