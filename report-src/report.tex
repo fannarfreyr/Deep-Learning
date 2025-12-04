@@ -13,7 +13,6 @@
 \usepackage{amsmath}
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
-\usepackage{lipsum}		% Can be removed after putting your text content
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{doi}
@@ -128,11 +127,9 @@ This approach exploits the model’s learned feature invariance to stabilize and
 
 \subsection{Establishing the "Hierarchy Gap" (Baselines)}
 
-	Comparing the Frozen Baseline (41.72\%) against the fine-tuned Unfrozen model (75.92\%) reveals a critical limitation in flat classification. Despite the significant accuracy gains from fine-tuning, a 'Hierarchy Gap' of nearly 10 percentage points persisted between Make Accuracy (85.49\%) and Model Accuracy (75.92\%). This discrepancy indicates that the model frequently predicts specific trims based on local visual cues without correctly identifying the parent manufacturer, thereby failing to capture the underlying taxonomic structure
 
 	Our baseline experiments highlight the structural failures of flat classifiers. While fine-tuning improved Top-1 accuracy from 41.72\% to 75.92\%, it left a 9.57\% gap between parent (Make) and child (Model) performance. This suggests the network memorized specific model features without learning the requisite brand hierarchy, essentially guessing the 'Model' while missing the 'Make'.
 
-	The objective of this section is to show that flat classifiers fail to capture relationships. This was done by comparing the performance on the data using the Frozen Baseline (achieving 41.72\% Acc) against the Unfrozen model (achieving approximately 75.92\% Acc). The key finding demonstrated that even with a decent overall accuracy, the "Gap" between the Make Accuracy (85.49\%) and the Model Accuracy (75.92\%) was nearly 10\%. This indicates that the model was essentially guessing the Models without reliably knowing the underlying Brand.
 
 
 \subsection{The Impact of Regularization \& Class Balancing}
@@ -146,27 +143,23 @@ This approach exploits the model’s learned feature invariance to stabilize and
 
 Curriculum Learning proved essential for resolving the optimization conflicts inherent in Multi-Task Learning. While training all three heads simultaneously caused a performance regression to 85.36\% (Experiment 6), implementing a 'coarse-to-fine' freezing schedule restored accuracy to 86.15\% (Experiment 7). This improvement validates the hypothesis that the shared backbone requires a stable initialization on high-level concepts (Make/Type) to avoid gradient interference from the fine-grained Model task.
 
-The objective was to solve the "Task Interference" problem inherent in the multi-task learning setup. This was demonstrated using data that contrasts Experiment 6 (the 3-Head model trained without Curriculum Learning, achieving 85.36\% accuracy) against Experiment 7 (the 3-Head model trained with Curriculum Learning, which yielded 86.15\% accuracy). The key finding is that, without the phased approach of Curriculum Learning, the gradients from the competing tasks conflicted within the shared backbone.	
 
 \subsection{Architectural Ablation: The Necessity of "Type"}
 
 	Architectural ablation confirms the necessity of the intermediate 'Type' head. When trained under identical curriculum protocols, the 3-Head architecture outperformed the 2-Head variant by +0.64 percentage points (86.15\% vs. 85.51\%). This result validates our hypothesis that the 'Type' label serves as a critical semantic bridge, providing the granular supervision required to link coarse Manufacturer features with fine-grained Model details.
 
-	To assess the structural necessity of the "Type" head, we compared the **2-Head Curriculum model** (Experiment 5.5, $85.51\%$ accuracy) against the optimized **3-Head model trained with Curriculum Learning**. The difference in performance showed a clear advantage for the 3-Head architecture, improving Model-head accuracy by **+0.64 percentage points** ($86.15\%$). This result confirms that the intermediate "Type" layer is required, serving as a necessary semantic bridge that guides the feature extraction process.
 		
 
 \subsection{SOTA Performance: Hierarchical Label Smoothing (HLS) \& Learning Rate Scheduler (LR Scheduler):}
 
 	Optimization via Hierarchical Label Smoothing and Learning Rate Scheduling drove the model to its training peak of 87.95\% Top-1 accuracy. Crucially, this phase achieved near-perfect structural coherence, elevating Make-Model consistency from 96.60\% to 97.66\% and Type-Model consistency to 96.58\%. These record metrics confirm that combining soft taxonomic targets with precise learning rate annealing was instrumental in eliminating the final residual inconsistencies in the prediction logic.
 
-	The ultimate goal was to push the model's predictive limits, leveraging the full benefit of the hierarchical structure. The data from the final optimized training run, Experiment 10, demonstrated significant results: it achieved a peak Top-1 Accuracy of 87.95\%. Crucially, the model's structural integrity improved further, with Make-Model Consistency rising from 96.60\% to 97.66\%, and Type-Model Consistency also increasing from 95.93\% to 96.58\%. This key finding shows that the combination of the Learning Rate Scheduler and Hierarchical Label Smoothing (HLS) was instrumental in driving the consistency metrics to their practical maximum.
 
 
 \subsection{The Impact of Inference Strategies (Test Time Augmentation (TTA)):}
 
 	Deploying Test Time Augmentation (TTA) during inference yielded our highest recorded performance of 88.57\%. This final improvement indicates that the trained model had successfully internalized the semantic hierarchy, with remaining errors largely attributable to non-invariant input noise. The TTA ensemble effectively mitigated these fluctuations, extracting the upper bound of the ResNet-50 backbone's capacity on this dataset.
 
-	The objective for this final stage was to achieve the ultimate accuracy improvement during the testing phase. Using the data, we show that after implementing 5-fold Test Time Augmentation (TTA), the model's accuracy reached 88.57\%, representing the highest performance we could extract from the system. This key finding confirms that a portion of the model's remaining prediction errors were attributable to view-specific noise, which the ensembling nature of TTA effectively mitigated.
 
 \begin{table*}[t]
 \centering
@@ -207,44 +200,34 @@ The objective was to solve the "Task Interference" problem inherent in the multi
 \toprule
 \textbf{Paper} & \textbf{Architecture} & \textbf{Acc (\%)} \\
 \midrule
-Valev et al. \cite{valev2018systematicevaluationrecentdeep} & ResNet-50 (Flat) & 92.0 \\
-Sanchez et al. \cite{inbook} & VGG-16 & 84.0 \\
+ \cite{valev2018systematicevaluationrecentdeep} & ResNet-50 (Flat) & 92.0 \\
+						& ResNet-152 & 92.6 \\ 
+						& DenseNet-161 & 94.6 \\ 
+ \cite{inbook} & VGG-16 & 84.0 \\
 \textbf{Ours} & \textbf{ResNet-50 (Hierarchical)} & \textbf{88.6} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\subsection{Qualitative Evaluation}
 
-\begin{table}[H]
-\centering
-\begin{tabular}{|p{5cm}|p{4cm}|c|}
-\hline
-\textbf{Paper} & \textbf{Model Architecture} & \textbf{Top - 1 Accuracy} \\
-\hline
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/label_prediction_3_samples.png}
+    \caption{Analysis of error modes. Sample 1 represents a total classification failure due to viewpoint. Sample 3 demonstrates a "near-miss" where the hierarchy is correct (Audi), but the specific trim is ambiguous.}
+    \label{fig:labels_pred}
+\end{figure}
 
-A Systematic Evaluation of Recent Deep Learning Architectures for Fine-Grained Vehicle Classification &
-ResNet-50 (FineTuned on ImageNet) &
-92,0\% \\
-\hline
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Images/heatmap_3_samples.png}
+    \caption{Grad-CAM attention maps. Note the distinct focus of the heads: The Make head (top row) attends to global shapes and grilles, while the Model head (bottom row) focuses on fine-grained trim details like lights and wheels.}
+    \label{fig:heatmap}
+\end{figure}
 
-& ResNet-152 (FineTuned on ImageNet) & 92,6\% \\
-\hline
+Figures \ref{fig:labels_pred} and \ref{fig:heatmap} illustrate the distinct behaviors of the multi-head architecture. Sample 1 (Figure \ref{fig:labels_pred}, left) represents a "hallucination" failure where the model confidently misclassifies all levels, likely due to the unusual top-down perspective occluding standard frontal features.
 
-& DenseNet-161 (FineTuned on ImageNet) & 94,6\% \\
-\hline
-
-Fine-Grained Image Classification for Vehicle Makes \& Models using CNNs &
-VGG-16 backbone (pretrained on ImageNet) &
-84,0\% \\
-\hline
-
-Our Model & ResNet-50 & 88,57\% \\
-\hline
-\end{tabular}
-
-\vspace{6pt}
-\caption{Compare accuracy to related benchmarks}
-\end{table}
+In contrast, Sample 3 (Figure \ref{fig:labels_pred}, right) demonstrates the success of the hierarchical constraints. The Make head identifies "Audi" with near-certainty ($99.2\%$), preventing an egregious cross-brand error. The error is isolated to the Model head, which struggles to differentiate the specific "TTS Coupe" trim from similar Audi frames. The heatmaps (Figure \ref{fig:heatmap}) further confirm that the heads have learned orthogonal features: the Make head consistently attends to brand identifiers (logos, grilles), while the Model head focuses on fine-grained details (headlights, bumpers), occasionally drifting to background noise in high-uncertainty scenarios.
 
 \subsection{Qualitative evaluation}
 \begin{figure}[ht!]
@@ -253,6 +236,9 @@ Our Model & ResNet-50 & 88,57\% \\
     \caption{Three Stanford-Cars test images and the five labels considered most probable by our model (3 heads, HLS, LRS). The correct label and the five labels considered most probable are written under each image. First sample: Make wrong, Type wrong, Model wrong. Second sample: Make wrong, Type wrong, Model correct. Third sample: Make correct, Type wrong, Model wrong}
     \label{fig:labels_pred}
 \end{figure}
+
+
+
 In Table 2, we observe different patterns of misclassification across the three samples. 
 
 The first sample demonstrates a case where the model is highly confident in its predictions for both the Make (98.86\%) and Type (92.64\%), despite both being incorrect. For the Model, the prediction is less clear, and the correct model does not even appear in the top-5 predictions.
