@@ -130,6 +130,8 @@ This approach exploits the model’s learned feature invariance to stabilize and
 
 	Comparing the Frozen Baseline (41.72\%) against the fine-tuned Unfrozen model (75.92\%) reveals a critical limitation in flat classification. Despite the significant accuracy gains from fine-tuning, a 'Hierarchy Gap' of nearly 10 percentage points persisted between Make Accuracy (85.49\%) and Model Accuracy (75.92\%). This discrepancy indicates that the model frequently predicts specific trims based on local visual cues without correctly identifying the parent manufacturer, thereby failing to capture the underlying taxonomic structure
 
+	Our baseline experiments highlight the structural failures of flat classifiers. While fine-tuning improved Top-1 accuracy from 41.72\% to 75.92\%, it left a 9.57\% gap between parent (Make) and child (Model) performance. This suggests the network memorized specific model features without learning the requisite brand hierarchy, essentially guessing the 'Model' while missing the 'Make'.
+
 	The objective of this section is to show that flat classifiers fail to capture relationships. This was done by comparing the performance on the data using the Frozen Baseline (achieving 41.72\% Acc) against the Unfrozen model (achieving approximately 75.92\% Acc). The key finding demonstrated that even with a decent overall accuracy, the "Gap" between the Make Accuracy (85.49\%) and the Model Accuracy (75.92\%) was nearly 10\%. This indicates that the model was essentially guessing the Models without reliably knowing the underlying Brand.
 
 
