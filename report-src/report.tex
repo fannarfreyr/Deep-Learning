@@ -226,17 +226,7 @@ In contrast, Sample 3 (Figure \ref{fig:labels_pred}, right) demonstrates the suc
     \label{fig:label_preds_mis_make_type_wrong}
 \end{figure}
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.95\linewidth]{Images/heatmap_mis_make_type_wrong.png}
-    \caption{Grad-CAM attention maps. All samples represent the case of predicting the make and type wrong}
-    \label{fig:heatmap_mis_make_type_wrong}
-\end{figure}
-
 Figure \ref{fig:label_preds_mis_make_type_wrong} illustrates additional cases where the model misclassifies both the make and type, but correctly predicts the model. In these samples, the model still assigns a relatively high probability to the correct label, even though it is not considered the most likely. The true type is also ranked second in all cases, but with a very low probability, ranging from 0.74\% to a maximum of 28.08\%.
-
-Figure \ref{fig:heatmap_mis_make_type_wrong} further confirms that the model first focuses on Make identifiers, while the other heads concentrate on finer details.
-
 
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
