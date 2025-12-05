@@ -235,7 +235,7 @@ Figure \ref{fig:label_preds_mis_make_type_wrong} illustrates additional cases wh
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
 
-\subsection{The "Frankenstein Car" Problem}
+\subsection{Resolving Hierarchical Inconsistencies}
 
 A question in hierarchical classification is whether a model learns the underlying taxonomy or whether it simply memorizes pixel-level patterns without understanding the semantic relationships between labels. Early versions of our model frequently produced predictions where the make, type, and model belonged to different, incompatible vehicles. For example, the make head might output “Toyota”, while the model head simultaneously predicted “Honda Civic”. Such inconsistencies mean that each head is treated as an isolated classification task.
 
@@ -271,7 +271,7 @@ The pursuit of fine-grained vehicle classification in this project demonstrated 
 
 The key to success lay in adopting the Shared-Bottom Multi-Task Learning architecture, specifically the three-head design. The "Type" head proved invaluable, acting as a semantic bridge that provided crucial intermediate scaffolding for the fine-grained "Model" prediction, resolving initial task interference when combined with Curriculum Learning.
 
-Furthermore, the introduction of Hierarchical Label Smoothing (HLS) and a fine-tuned Learning Rate Scheduler were critical for squeezing out the final performance gains and enforcing logical coherence, driving prediction consistency to $97.66\%$ and virtually eliminating the "Frankenstein Car" problem.
+Furthermore, the introduction of Hierarchical Label Smoothing (HLS) and a fine-tuned Learning Rate Scheduler were critical for squeezing out the final performance gains and enforcing logical coherence, driving prediction consistency to $97.66\%$ and virtually eliminating the hierarchical inconsistency problem.
 
 Achieving a final Top-1 accuracy of $88.57\%$ (with TTA) validates that our strategy was sound. This project confirms that for complex, hierarchical tasks, structuring the learning process and enforcing taxonomy coherence is paramount, yielding a final model that is not only accurate but also highly resilient and logically robust against real-world variations.
 
