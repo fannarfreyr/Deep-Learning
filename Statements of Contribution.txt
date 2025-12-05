@@ -9,6 +9,8 @@ Additionally, I designed graphics to visually represent the model architecture, 
 I also created visualizations for the Qualitative Evaluation, showcasing misclassified car samples, their Top-5 predictions, and the corresponding heatmaps.
 
 
-Ándras Szabolcs Gyüre:
+András Szabolcs Gyüre:
 
-I made the logging system (see experiment_logging.py) which made logs into experiment_log.md, made the visualizations for plots, confusion matrix, save our model, load the saved model, I implemented the third-Head which was the Type-Head. I also wrote like the half of the riport (eg. Abstract, Conclusion, Methods, Results , except qualitative evaulation.
+I made the logging system (see experiment_logging.py) which made logs into experiment_log.md, 
+made the visualizations for plots, confusion matrix, save our model, load the saved model, I implemented the third-Head which was the Type-Head.
+I also wrote like the half of the riport (eg. Abstract, Conclusion, Methods, Results , except qualitative evaulation.
