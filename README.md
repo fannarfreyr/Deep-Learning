@@ -31,8 +31,10 @@ We conducted an extensive ablation study to isolate the impact of each technique
 | **3** | Multi-Head (2-Head) | 77.20% | 90.44% | Structure helps, but heads conflict. |
 | **4** | + Augmentation | 85.65% | 95.26% | Robustness prevents overfitting. |
 | **5.5**| *Ablation: 2-Head + Curriculum* | *85.51%* | *95.77%* | *Proved necessity of the "Type" head.* |
-| **7** | **3-Head + Curriculum** | **86.15%** | **95.21%** | **Synergy:** 3 heads + ordering > 2 heads. |
-| **9** | + HLS & Scheduler | 87.95% | 97.66% | Convergence into sharp minimum. |
+| **6** | **3-Head** | **85.36%** | **94.44%** | **Interference:** 3 tasks confused the backbone. |
+| **7** | + Curriculum | **86.15%** | **95.21%** | **Synergy:** 3 heads + ordering > 2 heads. |
+| **8** | + HLS | **86.48%** | **96.60%** | Soft targets teach family structure. |
+| **9** | + Scheduler | 87.95% | 97.66% | Convergence into sharp minimum. |
 | **10**| **Final (with TTA)** | **88.57%** | **97.64%** | **Peak Performance.** |
 
 ## 🛠️ Setup & Installation
