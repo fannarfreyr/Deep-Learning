@@ -1,4 +1,4 @@
-# Hierarchical Vehicle Classification with Multi-Task Learning
+# Hierarchical Vehicle Classification with Multi-Task Learning Group 44
 
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
@@ -39,7 +39,7 @@ We conducted an extensive ablation study to isolate the impact of each technique
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/fannarfreyr/your-repo-name.git](https://github.com/fannarfreyr/your-repo-name.git)
+    git clone [https://github.com/fannarfreyr/Hierarchical-Vehicle-Classification-Group-44.git](https://github.com/fannarfreyr/Hierarchical-Vehicle-Classification-Group-44.git)
     cd your-repo-name
     ```
 
