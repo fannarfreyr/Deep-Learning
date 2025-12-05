@@ -12,7 +12,6 @@ I also created visualizations for the Qualitative Evaluation, showcasing misclas
 
 
 András Szabolcs Gyüre:
-
 I made the logging system (see experiment_logging.py) which made logs into experiment_log.md, 
 made the visualizations for plots, confusion matrix, save our model, load the saved model, I implemented the third-Head which was the Type-Head,
 and made the Notebook more readable, with the Markdowns.
