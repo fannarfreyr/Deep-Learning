@@ -134,7 +134,7 @@ This approach exploits the model’s learned feature invariance to stabilize and
 
 \subsection{The Impact of Regularization \& Class Balancing}
 
-	To address the twin challenges of overfitting and dataset imbalance, we implemented a two-stage regularization strategy. First, addressing overfitting proved to be the single most impactful intervention in our pipeline. The introduction of data augmentation yielded a performance surge from \textbf{75.92\%} to \textbf{85.65\%}. Achieving this $\approx$10\% gain without altering the model architecture or training duration indicates that the baseline models were severely constrained by memorization. By enforcing invariance to geometric transformations, augmentation successfully shifted the learning regime from overfitting to robust generalization.
+	To address the twin challenges of overfitting and dataset imbalance, we implemented a two-stage regularization strategy. First, addressing overfitting proved to be the single most impactful intervention in our pipeline. The introduction of data augmentation yielded a performance surge from \textbf{75.92\%} to \textbf{85.65\%}. Achieving this $approx$10\% gain without altering the model architecture or training duration indicates that the baseline models were severely constrained by memorization. By enforcing invariance to geometric transformations, augmentation successfully shifted the learning regime from overfitting to robust generalization.
 
 	Subsequently, to address the dataset's long-tail distribution, we implemented class-weighted loss functions. While this raised fine-grained Model accuracy to a new high of \textbf{86.02\%}, it coincided with a slight regression in Make accuracy (\textbf{92.71\% $\to$ 91.77\%}). This trade-off indicates that by reweighting the objective function, the optimizer was forced to reallocate representational capacity from dominant, easy classes to rare, difficult ones. Although this slightly reduced coarse-level scores, it improved the model's ability to generalize to the minority classes that standard training often neglects.
 
@@ -229,6 +229,7 @@ Figures \ref{fig:labels_pred} and \ref{fig:heatmap} illustrate the distinct beha
 
 In contrast, Sample 3 (Figure \ref{fig:labels_pred}, right) demonstrates the success of the hierarchical constraints. The Make head identifies "Audi" with near-certainty ($99.2\%$), preventing an egregious cross-brand error. The error is isolated to the Model head, which struggles to differentiate the specific "TTS Coupe" trim from similar Audi frames. The heatmaps (Figure \ref{fig:heatmap}) further confirm that the heads have learned orthogonal features: the Make head consistently attends to brand identifiers (logos, grilles), while the Model head focuses on fine-grained details (headlights, bumpers), occasionally drifting to background noise in high-uncertainty scenarios.
 
+<<<<<<< HEAD
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.95\linewidth]{Images/label_prediction_mis_make_type_wrong.png}
@@ -248,6 +249,8 @@ Figure \ref{fig:label_preds_mis_make_type_wrong} illustrates additional cases wh
 Figure \ref{fig:heatmap_mis_make_type_wrong} further confirms that the model first focuses on Make identifiers, while the other heads concentrate on finer details.
 
 
+=======
+>>>>>>> ec3dcb6 (Fixed some numbers)
 \section{Discussion}
 In the following section, we interpret the results of our project and critically examine the factors that shaped the model’s performance. We outline which components of our approach contributed meaningfully to improvements and where limitations were faced.
 
