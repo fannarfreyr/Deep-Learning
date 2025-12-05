@@ -39,7 +39,7 @@ We conducted an extensive ablation study to isolate the impact of each technique
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/fannarfreyr/Hierarchical-Vehicle-Classification-Group-44.git](https://github.com/fannarfreyr/Hierarchical-Vehicle-Classification-Group-44.git)
+    git clone https://github.com/fannarfreyr/Hierarchical-Vehicle-Classification-Group-44.git
     cd your-repo-name
     ```
 
